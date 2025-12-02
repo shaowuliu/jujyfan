@@ -3,148 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鞠婧祎官方应援网站</title>
-    <!-- Tailwind CSS -->
+    <title>鞠婧祎应援网站 - 音乐与舞蹈的魅力</title>
+    <!-- Tailwind CSS v3 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Video.js -->
-    <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet">
-    <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
-    <!-- GSAP 动画库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- 统一的 Tailwind 配置 -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         primary: '#FF6B8B',
-                        secondary: '#6BCEFF',
-                        accent: '#FFD166',
-                        dark: '#2C3E50',
-                        light: '#F8F9FA'
+                        secondary: '#FFB6C1',
+                        accent: '#FF85A2',
+                        light: '#FFF0F3',
+                        dark: '#4A4A4A',
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
                     },
                     animation: {
-                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-in-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
                         }
                     }
                 }
             }
         }
     </script>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        html {
-            scroll-behavior: smooth;
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .text-shadow-lg {
+                text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            }
+            .backdrop-blur-sm {
+                backdrop-filter: blur(4px);
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .masonry-grid {
+                column-count: 1;
+                column-gap: 1rem;
+            }
+            @screen md {
+                .masonry-grid {
+                    column-count: 2;
+                }
+            }
+            @screen lg {
+                .masonry-grid {
+                    column-count: 3;
+                }
+            }
+            .masonry-item {
+                break-inside: avoid;
+                margin-bottom: 1rem;
+            }
         }
-        
+    </style>
+    <style>
+        /* 自定义样式 */
         body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #FFF0F3;
+            color: #4A4A4A;
         }
         
         .hero-section {
-            background: linear-gradient(135deg, #FF6B8B 0%, #6BCEFF 100%);
+            background: linear-gradient(135deg, #FF6B8B 0%, #FF85A2 100%);
             height: 100vh;
             position: relative;
             overflow: hidden;
         }
         
-        .hero-pattern {
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, #FF6B8B, #6BCEFF);
-            border-radius: 2px;
-        }
-        
-        .music-card {
-            transition: all 0.3s ease;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .music-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-        
-        .video-card {
-            transition: all 0.3s ease;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        
-        .video-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-        
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .video-card:hover .video-overlay {
-            opacity: 1;
-        }
-        
-        .play-button {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: scale(0.8);
-            transition: all 0.3s ease;
-        }
-        
-        .video-card:hover .play-button {
-            transform: scale(1);
+            background-image: url('https://p11-doubao-search-sign.byteimg.com/labis/277f1a09ba886611b820a6bb3cd74ad4~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=VSBtMPJUya%2FXPqghRvTIQ%2Frbmvw%3D');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            filter: blur(8px);
         }
         
         .nav-link {
@@ -159,7 +127,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #FF6B8B, #6BCEFF);
+            background-color: #FF6B8B;
             transition: width 0.3s ease;
         }
         
@@ -167,39 +135,88 @@
             width: 100%;
         }
         
-        .active-nav::after {
-            width: 100%;
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .testimonial-card {
-            transition: all 0.3s ease;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .testimonial-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(255, 107, 139, 0.1), 0 10px 10px -5px rgba(255, 107, 139, 0.04);
         }
         
-        .social-icon {
-            width: 40px;
-            height: 40px;
+        .music-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .music-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .music-card.active {
+            border-color: #FF6B8B;
+            background-color: rgba(255, 107, 139, 0.05);
+        }
+        
+        .video-card {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-card img {
+            transition: transform 0.5s ease;
+        }
+        
+        .video-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-card:hover .video-overlay {
+            opacity: 1;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 107, 139, 0.8);
             border-radius: 50%;
-            background: linear-gradient(135deg, #FF6B8B 0%, #6BCEFF 100%);
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            opacity: 0;
             transition: all 0.3s ease;
         }
         
-        .social-icon:hover {
-            transform: translateY(-5px) rotate(5deg);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .video-card:hover .play-button {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
         
-        /* 视频模态框 */
+        .image-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .image-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
         .modal {
             display: none;
             position: fixed;
@@ -207,25 +224,73 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            overflow: auto;
         }
         
         .modal-content {
-            width: 90%;
-            max-width: 1000px;
-            position: relative;
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
         }
         
-        .close-modal {
+        .close-button {
             position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
+            top: 20px;
+            right: 30px;
             font-size: 30px;
+            color: white;
             cursor: pointer;
+        }
+        
+        .comment-section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comment-input {
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 10px;
+            width: 100%;
+            resize: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .comment-input:focus {
+            border-color: #FF6B8B;
+            outline: none;
+        }
+        
+        .comment-button {
+            background-color: #FF6B8B;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .comment-button:hover {
+            background-color: #FF85A2;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #FF6B8B;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         /* 响应式调整 */
@@ -235,1059 +300,1239 @@
                 min-height: 100vh;
             }
             
-            .section-title {
-                font-size: 1.5rem;
+            .desktop-nav {
+                display: none;
             }
             
-            .modal-content {
-                width: 95%;
+            .mobile-nav {
+                display: block;
             }
         }
         
-        /* 加载动画 */
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 5px solid #FFF;
-            border-bottom-color: #FF6B8B;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-
-        @keyframes rotation {
-            0% {
-                transform: rotate(0deg);
+        @media (min-width: 769px) {
+            .desktop-nav {
+                display: flex;
             }
-            100% {
-                transform: rotate(360deg);
+            
+            .mobile-nav {
+                display: none;
             }
-        }
-        
-        /* 滚动动画 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .fade-in.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* 音乐播放器样式 */
-        .music-player {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            z-index: 100;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .music-player.active {
-            transform: translateY(0);
-        }
-        
-        .player-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .player-button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #FF6B8B 0%, #6BCEFF 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .player-button:hover {
-            transform: scale(1.1);
-        }
-        
-        .progress-container {
-            flex: 1;
-            height: 4px;
-            background: #e0e0e0;
-            border-radius: 2px;
-            margin: 0 20px;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #FF6B8B, #6BCEFF);
-            border-radius: 2px;
-            width: 0;
-            transition: width 0.1s linear;
-        }
-        
-        .progress-handle {
-            position: absolute;
-            top: 50%;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: white;
-            border: 2px solid #FF6B8B;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .progress-container:hover .progress-handle {
-            opacity: 1;
-        }
-        
-        /* 趣味测试样式 */
-        .quiz-container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .quiz-question {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-        
-        .quiz-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .quiz-option {
-            padding: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .quiz-option:hover {
-            border-color: #FF6B8B;
-            background: rgba(255, 107, 139, 0.05);
-        }
-        
-        .quiz-option.selected {
-            border-color: #FF6B8B;
-            background: rgba(255, 107, 139, 0.1);
-        }
-        
-        .quiz-result {
-            text-align: center;
-            padding: 2rem;
-            display: none;
-        }
-        
-        .result-score {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #FF6B8B;
-            margin-bottom: 1rem;
-        }
-        
-        .result-message {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
         }
     </style>
 </head>
-<body class="bg-light text-dark">
+<body>
     <!-- 导航栏 -->
-    <nav class="fixed top-0 left-0 w-full bg-white bg-opacity-95 backdrop-blur-md z-50 shadow-sm">
+    <nav class="fixed top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-sm z-50 shadow-sm">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <span class="text-2xl font-bold text-primary">鞠婧祎<span class="text-secondary">应援站</span></span>
+                <span class="text-2xl font-bold text-primary">鞠婧祎应援站</span>
             </div>
             
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="nav-link active-nav font-medium">首页</a>
-                <a href="#music" class="nav-link font-medium">音乐作品</a>
-                <a href="#videos" class="nav-link font-medium">舞蹈视频</a>
-                <a href="#quiz" class="nav-link font-medium">趣味测试</a>
-                <a href="#gallery" class="nav-link font-medium">照片墙</a>
-                <a href="#about" class="nav-link font-medium">关于小鞠</a>
+            <!-- 桌面导航 -->
+            <div class="desktop-nav">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="nav-link font-medium">首页</a></li>
+                    <li><a href="#music" class="nav-link font-medium">音乐</a></li>
+                    <li><a href="#videos" class="nav-link font-medium">舞蹈视频</a></li>
+                    <li><a href="#gallery" class="nav-link font-medium">图片墙</a></li>
+                    <li><a href="#about" class="nav-link font-medium">关于</a></li>
+                </ul>
             </div>
             
-            <div class="md:hidden">
+            <!-- 移动端导航按钮 -->
+            <div class="mobile-nav">
                 <button id="mobile-menu-button" class="text-dark focus:outline-none">
-                    <i class="fas fa-bars text-xl"></i>
+                    <i class="fa fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
         
-        <!-- 移动端菜单 -->
-        <div id="mobile-menu" class="md:hidden bg-white shadow-md hidden">
-            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
-                <a href="#home" class="mobile-nav-link py-2 font-medium">首页</a>
-                <a href="#music" class="mobile-nav-link py-2 font-medium">音乐作品</a>
-                <a href="#videos" class="mobile-nav-link py-2 font-medium">舞蹈视频</a>
-                <a href="#quiz" class="mobile-nav-link py-2 font-medium">趣味测试</a>
-                <a href="#gallery" class="mobile-nav-link py-2 font-medium">照片墙</a>
-                <a href="#about" class="mobile-nav-link py-2 font-medium">关于小鞠</a>
-            </div>
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="hidden bg-white w-full shadow-md">
+            <ul class="py-2 px-4">
+                <li><a href="#home" class="block py-2 px-4 hover:bg-light rounded">首页</a></li>
+                <li><a href="#music" class="block py-2 px-4 hover:bg-light rounded">音乐</a></li>
+                <li><a href="#videos" class="block py-2 px-4 hover:bg-light rounded">舞蹈视频</a></li>
+                <li><a href="#gallery" class="block py-2 px-4 hover:bg-light rounded">图片墙</a></li>
+                <li><a href="#about" class="block py-2 px-4 hover:bg-light rounded">关于</a></li>
+            </ul>
         </div>
     </nav>
-    
+
     <!-- 首页英雄区 -->
     <section id="home" class="hero-section flex items-center justify-center">
-        <div class="hero-pattern"></div>
-        <div class="container mx-auto px-4 z-10 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 animate-float">鞠婧祎</h1>
-            <p class="text-xl md:text-2xl text-white mb-8 max-w-2xl mx-auto">中国内地流行乐女歌手、影视演员</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#music" class="bg-white text-primary px-6 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all transform hover:-translate-y-1 hover:shadow-lg">
-                    <i class="fas fa-music mr-2"></i>音乐作品
+        <div class="hero-bg"></div>
+        <div class="hero-content container mx-auto px-4 text-center text-white">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-shadow-lg animate-fade-in">鞠婧祎</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-shadow animate-slide-up">中国内地流行乐女歌手、影视演员，SNH48前成员，以其出色的歌唱和舞蹈技巧赢得了众多粉丝的喜爱。</p>
+            <div class="flex flex-wrap justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
+                <a href="#music" class="bg-white text-primary font-medium px-8 py-3 rounded-full hover:bg-light transition duration-300 shadow-lg">
+                    <i class="fa fa-music mr-2"></i>探索音乐
                 </a>
-                <a href="#videos" class="bg-white text-secondary px-6 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all transform hover:-translate-y-1 hover:shadow-lg">
-                    <i class="fas fa-video mr-2"></i>舞蹈视频
+                <a href="#videos" class="bg-primary bg-opacity-30 text-white border border-white font-medium px-8 py-3 rounded-full hover:bg-opacity-50 transition duration-300 shadow-lg">
+                    <i class="fa fa-video-camera mr-2"></i>观看视频
                 </a>
             </div>
         </div>
     </section>
-    
-    <!-- 音乐作品区 -->
+
+    <!-- 音乐区 -->
     <section id="music" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="section-title text-3xl font-bold">音乐作品</h2>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">音乐作品</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">探索鞠婧祎的音乐世界，从流行到古风，感受她多变的音乐风格。</p>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 音乐卡片 1 -->
-                <div class="music-card fade-in">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/90d2a61220fdd6aee36747995b58145e~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=EFlKZpz31ubtajBhSfYSd2UuXUA%3D" alt="孤独与诗" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">孤独与诗</h3>
-                        <p class="text-gray-600 mb-4">发行时间：2019-06-18</p>
-                        <p class="text-gray-700 mb-6">鞠婧祎首张个人专辑，收录了多首风格各异的歌曲，展现了她的音乐才华。</p>
-                        <button class="play-music bg-primary text-white px-4 py-2 rounded-full hover:bg-opacity-90 transition-all flex items-center" data-song="孤独与诗">
-                            <i class="fas fa-play mr-2"></i>播放
-                        </button>
+            <!-- 音乐分类标签 -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button class="music-filter-btn active px-5 py-2 rounded-full bg-primary text-white font-medium hover:bg-accent transition duration-300" data-filter="all">全部</button>
+                <button class="music-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="pop">流行</button>
+                <button class="music-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="ancient">古风</button>
+                <button class="music-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="soundtrack">影视原声</button>
+            </div>
+            
+            <!-- 音乐播放器 -->
+            <div class="bg-light rounded-xl p-6 mb-10 shadow-md">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="w-full md:w-1/4 mb-6 md:mb-0 flex justify-center">
+                        <div id="current-album-art" class="w-40 h-40 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://p11-doubao-search-sign.byteimg.com/labis/54c0dd6279433988cf541c3c35f90a7b~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=WQ8%2BOPYk2a%2BoianyjSwN8bJeozA%3D" alt="专辑封面" class="w-full h-full object-cover">
+                        </div>
                     </div>
-                </div>
-                
-                <!-- 音乐卡片 2 -->
-                <div class="music-card fade-in" style="animation-delay: 0.2s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/1947197c664363aad06968b58dd94e20~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=GtvNJAI5BbcNOJVSOSzeTOrDu6E%3D" alt="分裂时差" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">分裂时差</h3>
-                        <p class="text-gray-600 mb-4">发行时间：2017-12-18</p>
-                        <p class="text-gray-700 mb-6">融合流行与R&B风格的单曲，展现了鞠婧祎在音乐上的多样性。</p>
-                        <button class="play-music bg-primary text-white px-4 py-2 rounded-full hover:bg-opacity-90 transition-all flex items-center" data-song="分裂时差">
-                            <i class="fas fa-play mr-2"></i>播放
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 音乐卡片 3 -->
-                <div class="music-card fade-in" style="animation-delay: 0.4s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/972c79111c12dc156982835c3d415925~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=ujWlWJttB%2BmQei8Jvb4OutOZfsI%3D" alt="每一天" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">每一天</h3>
-                        <p class="text-gray-600 mb-4">发行时间：2016-10-17</p>
-                        <p class="text-gray-700 mb-6">充满活力的流行歌曲，传递积极向上的生活态度。</p>
-                        <button class="play-music bg-primary text-white px-4 py-2 rounded-full hover:bg-opacity-90 transition-all flex items-center" data-song="每一天">
-                            <i class="fas fa-play mr-2"></i>播放
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 音乐卡片 4 -->
-                <div class="music-card fade-in" style="animation-delay: 0.6s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/5735a3e7ca8c3d9d80a12395fd48652c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=65RFGF3WVusDIjbtaIj%2B0PKP2oQ%3D" alt="叹云兮" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">叹云兮</h3>
-                        <p class="text-gray-600 mb-4">发行时间：2018-06-22</p>
-                        <p class="text-gray-700 mb-6">电视剧《芸汐传》片尾曲，古风曲调，情感细腻动人。</p>
-                        <button class="play-music bg-primary text-white px-4 py-2 rounded-full hover:bg-opacity-90 transition-all flex items-center" data-song="叹云兮">
-                            <i class="fas fa-play mr-2"></i>播放
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 音乐卡片 5 -->
-                <div class="music-card fade-in" style="animation-delay: 0.8s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/2dbf21ffbc7c2d86023c57b9b511866c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=CyD2yALmSc9MEBPkbs4stnHnvwg%3D" alt="落花成泥" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">落花成泥</h3>
-                        <p class="text-gray-600 mb-4">发行时间：2018-06-15</p>
-                        <p class="text-gray-700 mb-6">电视剧《芸汐传》推广曲，古风与流行结合，意境优美。</p>
-                        <button class="play-music bg-primary text-white px-4 py-2 rounded-full hover:bg-opacity-90 transition-all flex items-center" data-song="落花成泥">
-                            <i class="fas fa-play mr-2"></i>播放
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 音乐卡片 6 -->
-                <div class="music-card fade-in" style="animation-delay: 1s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/78aa8e04c50dff17c7a996eb8303badd~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=3NqdDi9LwpY71DUSXwUfweMYgM0%3D" alt="所念皆星河" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">所念皆星河</h3>
-                        <p class="text-gray-600 mb-4">发行时间：2025-02-12</p>
-                        <p class="text-gray-700 mb-6">江苏卫视元宵晚会表演歌曲，温柔治愈，旋律优美。</p>
-                        <button class="play-music bg-primary text-white px-4 py-2 rounded-full hover:bg-opacity-90 transition-all flex items-center" data-song="所念皆星河">
-                            <i class="fas fa-play mr-2"></i>播放
-                        </button>
+                    <div class="w-full md:w-3/4">
+                        <h3 id="current-song-title" class="text-2xl font-bold mb-2 text-center md:text-left">恋爱告急</h3>
+                        <p id="current-song-artist" class="text-gray-600 mb-6 text-center md:text-left">鞠婧祎</p>
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-2">
+                                <span id="current-time" class="text-sm text-gray-500">00:00</span>
+                                <span id="total-time" class="text-sm text-gray-500">03:30</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div id="progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center md:justify-start items-center space-x-6">
+                            <button class="text-gray-600 hover:text-primary transition duration-300">
+                                <i class="fa fa-step-backward text-xl"></i>
+                            </button>
+                            <button id="play-button" class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-accent transition duration-300">
+                                <i class="fa fa-play text-xl"></i>
+                            </button>
+                            <button class="text-gray-600 hover:text-primary transition duration-300">
+                                <i class="fa fa-step-forward text-xl"></i>
+                            </button>
+                            <button class="text-gray-600 hover:text-primary transition duration-300">
+                                <i class="fa fa-repeat text-xl"></i>
+                            </button>
+                            <button class="text-gray-600 hover:text-primary transition duration-300">
+                                <i class="fa fa-random text-xl"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- 歌词显示 -->
+            <div class="bg-light rounded-xl p-6 mb-10 shadow-md hidden" id="lyrics-container">
+                <h3 class="text-xl font-bold mb-4 text-center">歌词</h3>
+                <div id="lyrics" class="text-center text-gray-700 leading-relaxed">
+                    <!-- 歌词将通过JavaScript动态加载 -->
+                </div>
+            </div>
+            
+            <!-- 音乐列表 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 音乐卡片1 -->
+                <div class="music-card card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100" data-category="pop">
+                    <div class="relative">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/54c0dd6279433988cf541c3c35f90a7b~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=WQ8%2BOPYk2a%2BoianyjSwN8bJeozA%3D" alt="恋爱告急" class="w-full h-48 object-cover">
+                        <button class="play-song absolute top-4 right-4 bg-primary bg-opacity-80 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-100 transition duration-300">
+                            <i class="fa fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">恋爱告急</h3>
+                        <p class="text-gray-600 mb-3">流行 · 2023</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">3:30</span>
+                            <button class="text-primary hover:text-accent transition duration-300">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 音乐卡片2 -->
+                <div class="music-card card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100" data-category="ancient">
+                    <div class="relative">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/2b4100b0eb62453e87a87da56dc0ebba~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=XSUO8%2B5APh2arg3p9JEZKKcFBPU%3D" alt="锦鲤抄" class="w-full h-48 object-cover">
+                        <button class="play-song absolute top-4 right-4 bg-primary bg-opacity-80 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-100 transition duration-300">
+                            <i class="fa fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">锦鲤抄</h3>
+                        <p class="text-gray-600 mb-3">古风 · 2025</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">4:58</span>
+                            <button class="text-primary hover:text-accent transition duration-300">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 音乐卡片3 -->
+                <div class="music-card card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100" data-category="soundtrack">
+                    <div class="relative">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/15229df02170e25ce5dbd32fa31e7b1d~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=8Xr4I2CFvzjzxyEQD2ixrRUq7pM%3D" alt="叹云兮" class="w-full h-48 object-cover">
+                        <button class="play-song absolute top-4 right-4 bg-primary bg-opacity-80 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-100 transition duration-300">
+                            <i class="fa fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">叹云兮</h3>
+                        <p class="text-gray-600 mb-3">影视原声 · 2018</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">4:25</span>
+                            <button class="text-primary hover:text-accent transition duration-300">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 音乐卡片4 -->
+                <div class="music-card card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100" data-category="pop">
+                    <div class="relative">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/5b8e58c3c65b4c01ad95dab15c603694~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=Umwr95FiuDGiETGEJIeGC%2B9r8Z0%3D" alt="Be My POI" class="w-full h-48 object-cover">
+                        <button class="play-song absolute top-4 right-4 bg-primary bg-opacity-80 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-100 transition duration-300">
+                            <i class="fa fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">Be My POI</h3>
+                        <p class="text-gray-600 mb-3">流行 · 2022</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">3:15</span>
+                            <button class="text-primary hover:text-accent transition duration-300">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 音乐卡片5 -->
+                <div class="music-card card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100" data-category="ancient">
+                    <div class="relative">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/3b13a04cc060d927eefdaecd26d613b7~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=cYFEjtQ7dWk2TDwzMkxS18n10FE%3D" alt="千年等一回" class="w-full h-48 object-cover">
+                        <button class="play-song absolute top-4 right-4 bg-primary bg-opacity-80 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-100 transition duration-300">
+                            <i class="fa fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">千年等一回</h3>
+                        <p class="text-gray-600 mb-3">古风 · 2024</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">3:50</span>
+                            <button class="text-primary hover:text-accent transition duration-300">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 音乐卡片6 -->
+                <div class="music-card card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100" data-category="soundtrack">
+                    <div class="relative">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/labis/0030dd7be15b4b1ce5d18a8ea2cc999b~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208449&x-signature=6KqFgs1rM7lfF4QG2gOab3hrrtY%3D" alt="落花成泥" class="w-full h-48 object-cover">
+                        <button class="play-song absolute top-4 right-4 bg-primary bg-opacity-80 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-100 transition duration-300">
+                            <i class="fa fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">落花成泥</h3>
+                        <p class="text-gray-600 mb-3">影视原声 · 2018</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">4:05</span>
+                            <button class="text-primary hover:text-accent transition duration-300">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 查看更多按钮 -->
+            <div class="text-center mt-10">
+                <button class="bg-white border border-primary text-primary font-medium px-8 py-3 rounded-full hover:bg-light transition duration-300 shadow-md">
+                    查看更多音乐 <i class="fa fa-angle-down ml-2"></i>
+                </button>
+            </div>
         </div>
     </section>
-    
+
     <!-- 舞蹈视频区 -->
-    <section id="videos" class="py-20 bg-gray-50">
+    <section id="videos" class="py-20 bg-light">
         <div class="container mx-auto px-4">
-            <h2 class="section-title text-3xl font-bold">舞蹈视频</h2>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">舞蹈视频</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">欣赏鞠婧祎精彩的舞台表演和舞蹈视频，感受她的舞蹈魅力。</p>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 视频卡片 1 -->
-                <div class="video-card fade-in">
-                    <img src="https://p11-doubao-search-sign.byteimg.com/ecom-shop-material/png_m_ce54df01b5eb78f607ead04805775f74_sx_866387_www800-800~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=hJWjJvrkECnpY9x0KBgk19dIK%2B0%3D" alt="壁上观" class="w-full h-48 object-cover">
-                    <div class="video-overlay">
-                        <div class="play-button" data-video="https://www.bilibili.com/video/BV1seFJeHEP9/">
-                            <i class="fas fa-play text-primary text-xl"></i>
+            <!-- 视频分类标签 -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button class="video-filter-btn active px-5 py-2 rounded-full bg-primary text-white font-medium hover:bg-accent transition duration-300" data-filter="all">全部</button>
+                <button class="video-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="stage">舞台表演</button>
+                <button class="video-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="practice">练习室</button>
+                <button class="video-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="ancient">古风舞蹈</button>
+            </div>
+            
+            <!-- 视频列表 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 视频卡片1 -->
+                <div class="video-card card bg-white rounded-xl overflow-hidden shadow-md" data-category="stage">
+                    <div class="relative pb-[56.25%]">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/277f1a09ba886611b820a6bb3cd74ad4~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=VSBtMPJUya%2FXPqghRvTIQ%2Frbmvw%3D" alt="恋爱告急舞台" class="absolute top-0 left-0 w-full h-full object-cover">
+                        <div class="video-overlay"></div>
+                        <div class="play-button">
+                            <i class="fa fa-play text-white text-xl"></i>
                         </div>
+                        <span class="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">3:30</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">壁上观</h3>
-                        <p class="text-gray-600 mb-4">2025江苏卫视春晚</p>
-                        <p class="text-gray-700">鞠婧祎在江苏卫视春晚上表演的古风舞蹈，舞姿优美，意境深远。</p>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">恋爱告急 舞台表演</h3>
+                        <p class="text-gray-600 mb-3">2023江苏卫视跨年晚会</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fa fa-eye mr-1"></i> 12.5万</span>
+                            <span class="text-sm text-gray-500"><i class="fa fa-heart mr-1"></i> 3.2万</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 视频卡片 2 -->
-                <div class="video-card fade-in" style="animation-delay: 0.2s;">
-                    <img src="https://p11-doubao-search-sign.byteimg.com/pgc-image/RDb7TbS7wNSVAn~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=rYpF3i0I3EOgsJeazEG463v07PU%3D" alt="落" class="w-full h-48 object-cover">
-                    <div class="video-overlay">
-                        <div class="play-button" data-video="https://www.bilibili.com/video/BV18s2qY5EXH/">
-                            <i class="fas fa-play text-primary text-xl"></i>
+                <!-- 视频卡片2 -->
+                <div class="video-card card bg-white rounded-xl overflow-hidden shadow-md" data-category="ancient">
+                    <div class="relative pb-[56.25%]">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/2b4100b0eb62453e87a87da56dc0ebba~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=XSUO8%2B5APh2arg3p9JEZKKcFBPU%3D" alt="锦鲤抄舞蹈" class="absolute top-0 left-0 w-full h-full object-cover">
+                        <div class="video-overlay"></div>
+                        <div class="play-button">
+                            <i class="fa fa-play text-white text-xl"></i>
                         </div>
+                        <span class="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">4:58</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">落</h3>
-                        <p class="text-gray-600 mb-4">2024抖音美好奇妙夜</p>
-                        <p class="text-gray-700">鞠婧祎在抖音美好奇妙夜上表演的古风唱跳《落》，舞台表现力十足。</p>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">锦鲤抄 古风舞蹈</h3>
+                        <p class="text-gray-600 mb-3">2025王者荣耀共创之夜</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fa fa-eye mr-1"></i> 800万</span>
+                            <span class="text-sm text-gray-500"><i class="fa fa-heart mr-1"></i> 128万</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 视频卡片 3 -->
-                <div class="video-card fade-in" style="animation-delay: 0.4s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/2c7b05cdb6022459959896c388fe3b58~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=teC1KvND6DN52ib1MXnQI3dSHz0%3D" alt="所念皆星河" class="w-full h-48 object-cover">
-                    <div class="video-overlay">
-                        <div class="play-button" data-video="https://www.bilibili.com/video/BV1YZKVeAEnE/">
-                            <i class="fas fa-play text-primary text-xl"></i>
+                <!-- 视频卡片3 -->
+                <div class="video-card card bg-white rounded-xl overflow-hidden shadow-md" data-category="practice">
+                    <div class="relative pb-[56.25%]">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/labis/38470ab57fa6eb3c412c9e0ad0408eef~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208449&x-signature=Egs5I%2B%2FmeZ1nbQyKXVh16efSK34%3D" alt="Be My POI练习室" class="absolute top-0 left-0 w-full h-full object-cover">
+                        <div class="video-overlay"></div>
+                        <div class="play-button">
+                            <i class="fa fa-play text-white text-xl"></i>
                         </div>
+                        <span class="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">5:20</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">所念皆星河</h3>
-                        <p class="text-gray-600 mb-4">2025江苏卫视元宵晚会</p>
-                        <p class="text-gray-700">鞠婧祎在江苏卫视元宵晚会上表演的歌舞《所念皆星河》，温柔治愈。</p>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">Be My POI 练习室版</h3>
+                        <p class="text-gray-600 mb-3">2022舞蹈练习</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fa fa-eye mr-1"></i> 56.8万</span>
+                            <span class="text-sm text-gray-500"><i class="fa fa-heart mr-1"></i> 8.4万</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 视频卡片 4 -->
-                <div class="video-card fade-in" style="animation-delay: 0.6s;">
-                    <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/44cae6d53289427d86ccb7b3e7dae24a~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=EvqDpG9QOf9U%2F%2B1OWc4p2Wqjlhk%3D" alt="恋爱告急" class="w-full h-48 object-cover">
-                    <div class="video-overlay">
-                        <div class="play-button" data-video="https://www.bilibili.com/video/BV16c411k75e/">
-                            <i class="fas fa-play text-primary text-xl"></i>
+                <!-- 视频卡片4 -->
+                <div class="video-card card bg-white rounded-xl overflow-hidden shadow-md" data-category="stage">
+                    <div class="relative pb-[56.25%]">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/5b8e58c3c65b4c01ad95dab15c603694~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=Umwr95FiuDGiETGEJIeGC%2B9r8Z0%3D" alt="壁上观舞台" class="absolute top-0 left-0 w-full h-full object-cover">
+                        <div class="video-overlay"></div>
+                        <div class="play-button">
+                            <i class="fa fa-play text-white text-xl"></i>
                         </div>
+                        <span class="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">4:15</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">恋爱告急</h3>
-                        <p class="text-gray-600 mb-4">2024江苏卫视跨年晚会</p>
-                        <p class="text-gray-700">鞠婧祎在江苏卫视跨年晚会上表演的《恋爱告急》，元气满满，活力四射。</p>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">壁上观 舞台表演</h3>
+                        <p class="text-gray-600 mb-3">2025江苏卫视春晚</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fa fa-eye mr-1"></i> 32.6万</span>
+                            <span class="text-sm text-gray-500"><i class="fa fa-heart mr-1"></i> 5.2万</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 视频卡片 5 -->
-                <div class="video-card fade-in" style="animation-delay: 0.8s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/78aa8e04c50dff17c7a996eb8303badd~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=3NqdDi9LwpY71DUSXwUfweMYgM0%3D" alt="千里邀月" class="w-full h-48 object-cover">
-                    <div class="video-overlay">
-                        <div class="play-button" data-video="https://www.bilibili.com/video/BV18s2qY5EXH/">
-                            <i class="fas fa-play text-primary text-xl"></i>
+                <!-- 视频卡片5 -->
+                <div class="video-card card bg-white rounded-xl overflow-hidden shadow-md" data-category="ancient">
+                    <div class="relative pb-[56.25%]">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/3b13a04cc060d927eefdaecd26d613b7~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=cYFEjtQ7dWk2TDwzMkxS18n10FE%3D" alt="青城山下白素贞" class="absolute top-0 left-0 w-full h-full object-cover">
+                        <div class="video-overlay"></div>
+                        <div class="play-button">
+                            <i class="fa fa-play text-white text-xl"></i>
                         </div>
+                        <span class="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">3:45</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">千里邀月</h3>
-                        <p class="text-gray-600 mb-4">2024中秋漫游夜</p>
-                        <p class="text-gray-700">鞠婧祎在2024中秋漫游夜上表演的嫦娥主题古风宅舞《千里邀月》，仙气十足。</p>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">青城山下白素贞 舞蹈</h3>
+                        <p class="text-gray-600 mb-3">《新白娘子传奇》片场</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fa fa-eye mr-1"></i> 45.2万</span>
+                            <span class="text-sm text-gray-500"><i class="fa fa-heart mr-1"></i> 7.8万</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 视频卡片 6 -->
-                <div class="video-card fade-in" style="animation-delay: 1s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/5735a3e7ca8c3d9d80a12395fd48652c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=65RFGF3WVusDIjbtaIj%2B0PKP2oQ%3D" alt="游山恋" class="w-full h-48 object-cover">
-                    <div class="video-overlay">
-                        <div class="play-button" data-video="https://www.bilibili.com/video/BV1q642137Vu/">
-                            <i class="fas fa-play text-primary text-xl"></i>
+                <!-- 视频卡片6 -->
+                <div class="video-card card bg-white rounded-xl overflow-hidden shadow-md" data-category="practice">
+                    <div class="relative pb-[56.25%]">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/labis/0030dd7be15b4b1ce5d18a8ea2cc999b~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208449&x-signature=6KqFgs1rM7lfF4QG2gOab3hrrtY%3D" alt="叹云兮练习室" class="absolute top-0 left-0 w-full h-full object-cover">
+                        <div class="video-overlay"></div>
+                        <div class="play-button">
+                            <i class="fa fa-play text-white text-xl"></i>
                         </div>
+                        <span class="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">4:30</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">游山恋</h3>
-                        <p class="text-gray-600 mb-4">2024东方卫视春晚</p>
-                        <p class="text-gray-700">鞠婧祎与陈丽君合作表演的越剧《游山恋》，跨界融合，精彩绝伦。</p>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-1">叹云兮 练习室版</h3>
+                        <p class="text-gray-600 mb-3">2018舞蹈练习</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fa fa-eye mr-1"></i> 28.7万</span>
+                            <span class="text-sm text-gray-500"><i class="fa fa-heart mr-1"></i> 4.5万</span>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- 查看更多按钮 -->
+            <div class="text-center mt-10">
+                <button class="bg-white border border-primary text-primary font-medium px-8 py-3 rounded-full hover:bg-light transition duration-300 shadow-md">
+                    查看更多视频 <i class="fa fa-angle-down ml-2"></i>
+                </button>
+            </div>
         </div>
     </section>
-    
-    <!-- 趣味测试区 -->
-    <section id="quiz" class="py-20 bg-white">
+
+    <!-- 图片墙 -->
+    <section id="gallery" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="section-title text-3xl font-bold">鞠婧祎粉丝测试</h2>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">图片墙</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">浏览鞠婧祎的高清写真、舞台瞬间和古装剧照，感受她的多样魅力。</p>
+            </div>
             
-            <div class="quiz-container fade-in">
-                <div id="quiz-start" class="text-center py-8">
-                    <h3 class="text-2xl font-bold mb-4">你是鞠婧祎的真爱粉吗？</h3>
-                    <p class="text-gray-600 mb-8">测试一下你对小鞠的了解程度吧！</p>
-                    <button id="start-quiz" class="bg-primary text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all transform hover:-translate-y-1 hover:shadow-lg">
-                        开始测试
-                    </button>
-                </div>
-                
-                <div id="quiz-questions" class="hidden">
-                    <!-- 问题 1 -->
-                    <div class="quiz-question-container">
-                        <p class="quiz-question">1. 鞠婧祎的出生日期是？</p>
-                        <div class="quiz-options">
-                            <div class="quiz-option" data-correct="true">1994年6月18日</div>
-                            <div class="quiz-option">1995年6月18日</div>
-                            <div class="quiz-option">1994年7月18日</div>
-                            <div class="quiz-option">1995年7月18日</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 问题 2 -->
-                    <div class="quiz-question-container hidden">
-                        <p class="quiz-question">2. 鞠婧祎在SNH48的总选举中获得过几次第一名？</p>
-                        <div class="quiz-options">
-                            <div class="quiz-option">1次</div>
-                            <div class="quiz-option" data-correct="true">2次</div>
-                            <div class="quiz-option">3次</div>
-                            <div class="quiz-option">4次</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 问题 3 -->
-                    <div class="quiz-question-container hidden">
-                        <p class="quiz-question">3. 鞠婧祎主演的第一部电视剧是？</p>
-                        <div class="quiz-options">
-                            <div class="quiz-option">《芸汐传》</div>
-                            <div class="quiz-option">《新白娘子传奇》</div>
-                            <div class="quiz-option" data-correct="true">《九州天空城》</div>
-                            <div class="quiz-option">《热血长安》</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 问题 4 -->
-                    <div class="quiz-question-container hidden">
-                        <p class="quiz-question">4. 鞠婧祎的首张个人专辑是？</p>
-                        <div class="quiz-options">
-                            <div class="quiz-option">《每一天》</div>
-                            <div class="quiz-option" data-correct="true">《孤独与诗》</div>
-                            <div class="quiz-option">《分裂时差》</div>
-                            <div class="quiz-option">《等不到你》</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 问题 5 -->
-                    <div class="quiz-question-container hidden">
-                        <p class="quiz-question">5. 鞠婧祎在2025年江苏卫视春晚上表演的歌曲是？</p>
-                        <div class="quiz-options">
-                            <div class="quiz-option">《落》</div>
-                            <div class="quiz-option">《所念皆星河》</div>
-                            <div class="quiz-option" data-correct="true">《壁上观》</div>
-                            <div class="quiz-option">《恋爱告急》</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex justify-between mt-8">
-                        <button id="prev-question" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-full hover:bg-gray-400 transition-all hidden">
-                            <i class="fas fa-arrow-left mr-2"></i>上一题
-                        </button>
-                        <button id="next-question" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-all">
-                            下一题<i class="fas fa-arrow-right ml-2"></i>
-                        </button>
-                        <button id="submit-quiz" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-all hidden">
-                            提交答案<i class="fas fa-check ml-2"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div id="quiz-result" class="quiz-result">
-                    <h3 class="text-2xl font-bold mb-4">测试结果</h3>
-                    <p class="result-score">0/5</p>
-                    <p class="result-message">继续加油，多了解小鞠吧！</p>
-                    <button id="retry-quiz" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-all">
-                        重新测试
+            <!-- 图片分类标签 -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button class="image-filter-btn active px-5 py-2 rounded-full bg-primary text-white font-medium hover:bg-accent transition duration-300" data-filter="all">全部</button>
+                <button class="image-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="stage">舞台</button>
+                <button class="image-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="portrait">写真</button>
+                <button class="image-filter-btn px-5 py-2 rounded-full bg-gray-200 text-dark font-medium hover:bg-gray-300 transition duration-300" data-filter="ancient">古装</button>
+            </div>
+            
+            <!-- 图片搜索 -->
+            <div class="max-w-md mx-auto mb-10">
+                <div class="relative">
+                    <input type="text" id="image-search" placeholder="搜索图片..." class="w-full px-5 py-3 rounded-full border border-gray-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20">
+                    <button class="absolute right-3 top-3 text-gray-500 hover:text-primary transition duration-300">
+                        <i class="fa fa-search"></i>
                     </button>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- 照片墙 -->
-    <section id="gallery" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="section-title text-3xl font-bold">照片墙</h2>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div class="gallery-item fade-in">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/2c7b05cdb6022459959896c388fe3b58~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=teC1KvND6DN52ib1MXnQI3dSHz0%3D" alt="鞠婧祎" class="w-full h-48 object-cover rounded-lg">
-                </div>
-                <div class="gallery-item fade-in" style="animation-delay: 0.1s;">
-                    <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/44cae6d53289427d86ccb7b3e7dae24a~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=EvqDpG9QOf9U%2F%2B1OWc4p2Wqjlhk%3D" alt="鞠婧祎" class="w-full h-48 object-cover rounded-lg">
-                </div>
-                <div class="gallery-item fade-in" style="animation-delay: 0.2s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/78aa8e04c50dff17c7a996eb8303badd~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=3NqdDi9LwpY71DUSXwUfweMYgM0%3D" alt="鞠婧祎" class="w-full h-48 object-cover rounded-lg">
-                </div>
-                <div class="gallery-item fade-in" style="animation-delay: 0.3s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/5735a3e7ca8c3d9d80a12395fd48652c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=65RFGF3WVusDIjbtaIj%2B0PKP2oQ%3D" alt="鞠婧祎" class="w-full h-48 object-cover rounded-lg">
-                </div>
-                <div class="gallery-item fade-in" style="animation-delay: 0.4s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/2dbf21ffbc7c2d86023c57b9b511866c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=CyD2yALmSc9MEBPkbs4stnHnvwg%3D" alt="鞠婧祎" class="w-full h-48 object-cover rounded-lg">
-                </div>
-                <div class="gallery-item fade-in" style="animation-delay: 0.5s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/1947197c664363aad06968b58dd94e20~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=GtvNJAI5BbcNOJVSOSzeTOrDu6E%3D" alt="鞠婧祎" class="w-full h-48 object-cover rounded-lg">
-                </div>
-                <div class="gallery-item fade-in" style="animation-delay: 0.6s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/972c79111c12dc156982835c3d415925~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=ujWlWJttB%2BmQei8Jvb4OutOZfsI%3D" alt="鞠婧祎" class="w-full h-48 object-cover rounded-lg">
-                </div>
-                <div class="gallery-item fade-in" style="animation-delay: 0.7s;">
-                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/90d2a61220fdd6aee36747995b58145e~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=EFlKZpz31ubtajBhSfYSd2UuXUA%3D" alt="鞠婧祎" class="w-full h-48 object-cover rounded-lg">
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- 关于小鞠 -->
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="section-title text-3xl font-bold">关于小鞠</h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="fade-in">
-                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/0615e452fd8a9a915c8d75b764626bf7~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=yr2TFc7aPst1NRwekQTBsn2Nuto%3D" alt="鞠婧祎" class="w-full rounded-lg shadow-xl">
+            <!-- 图片瀑布流 -->
+            <div class="masonry-grid">
+                <!-- 图片1 -->
+                <div class="masonry-item image-item" data-category="stage">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/277f1a09ba886611b820a6bb3cd74ad4~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=VSBtMPJUya%2FXPqghRvTIQ%2Frbmvw%3D" alt="舞台表演" class="w-full h-auto">
+                    </div>
                 </div>
                 
-                <div class="fade-in" style="animation-delay: 0.3s;">
-                    <h3 class="text-2xl font-bold mb-4">个人简介</h3>
-                    <p class="text-gray-700 mb-6">鞠婧祎（Kiku），1994年6月18日出生于四川省遂宁市，中国内地影视女演员、流行乐歌手。</p>
+                <!-- 图片2 -->
+                <div class="masonry-item image-item" data-category="portrait">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p26-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/98a13ea50ea543fc97129463ee9e6693~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208449&x-signature=6dIwq42mCpsYaqN2z60EBV0T2zU%3D" alt="高清写真" class="w-full h-auto">
+                    </div>
+                </div>
+                
+                <!-- 图片3 -->
+                <div class="masonry-item image-item" data-category="ancient">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/2b4100b0eb62453e87a87da56dc0ebba~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=XSUO8%2B5APh2arg3p9JEZKKcFBPU%3D" alt="古装剧照" class="w-full h-auto">
+                    </div>
+                </div>
+                
+                <!-- 图片4 -->
+                <div class="masonry-item image-item" data-category="stage">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/5b8e58c3c65b4c01ad95dab15c603694~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=Umwr95FiuDGiETGEJIeGC%2B9r8Z0%3D" alt="舞台表演" class="w-full h-auto">
+                    </div>
+                </div>
+                
+                <!-- 图片5 -->
+                <div class="masonry-item image-item" data-category="portrait">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/ef7827839ec6260a3d75aba2a086d204~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=V23icXdcNwp2HuvFzpRZiKyk1lE%3D" alt="高清写真" class="w-full h-auto">
+                    </div>
+                </div>
+                
+                <!-- 图片6 -->
+                <div class="masonry-item image-item" data-category="ancient">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/15229df02170e25ce5dbd32fa31e7b1d~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=8Xr4I2CFvzjzxyEQD2ixrRUq7pM%3D" alt="古装剧照" class="w-full h-auto">
+                    </div>
+                </div>
+                
+                <!-- 图片7 -->
+                <div class="masonry-item image-item" data-category="stage">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/labis/0030dd7be15b4b1ce5d18a8ea2cc999b~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208449&x-signature=6KqFgs1rM7lfF4QG2gOab3hrrtY%3D" alt="舞台表演" class="w-full h-auto">
+                    </div>
+                </div>
+                
+                <!-- 图片8 -->
+                <div class="masonry-item image-item" data-category="portrait">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/labis/38470ab57fa6eb3c412c9e0ad0408eef~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208449&x-signature=Egs5I%2B%2FmeZ1nbQyKXVh16efSK34%3D" alt="高清写真" class="w-full h-auto">
+                    </div>
+                </div>
+                
+                <!-- 图片9 -->
+                <div class="masonry-item image-item" data-category="ancient">
+                    <div class="rounded-xl overflow-hidden shadow-md">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/3b13a04cc060d927eefdaecd26d613b7~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208448&x-signature=cYFEjtQ7dWk2TDwzMkxS18n10FE%3D" alt="古装剧照" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 加载更多按钮 -->
+            <div class="text-center mt-10">
+                <button id="load-more-images" class="bg-white border border-primary text-primary font-medium px-8 py-3 rounded-full hover:bg-light transition duration-300 shadow-md">
+                    加载更多图片 <i class="fa fa-refresh ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于区域 -->
+    <section id="about" class="py-20 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">关于鞠婧祎</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">了解鞠婧祎的成长历程、音乐成就和演艺生涯。</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <!-- 个人简介 -->
+                <div class="bg-white rounded-xl p-8 shadow-md">
+                    <h3 class="text-2xl font-bold mb-6 text-center">个人简介</h3>
+                    <div class="flex flex-col md:flex-row items-center mb-6">
+                        <div class="w-full md:w-1/3 mb-6 md:mb-0 flex justify-center">
+                            <img src="https://p26-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/98a13ea50ea543fc97129463ee9e6693~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1780208449&x-signature=6dIwq42mCpsYaqN2z60EBV0T2zU%3D" alt="鞠婧祎" class="w-40 h-40 rounded-full object-cover shadow-lg">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="font-bold w-20">姓名：</span>
+                                    <span>鞠婧祎</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="font-bold w-20">生日：</span>
+                                    <span>1994年6月18日</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="font-bold w-20">出生地：</span>
+                                    <span>四川省遂宁市</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="font-bold w-20">职业：</span>
+                                    <span>歌手、演员</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="font-bold w-20">出道时间：</span>
+                                    <span>2013年8月18日</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed">
+                        鞠婧祎，中国内地流行乐女歌手、影视演员，前SNH48成员。2013年通过SNH48选拔出道，2017年单飞发展。她以清新甜美的形象和扎实的唱跳功底受到广泛关注，曾获得"年度风尚歌手"、"年度跨界艺人奖"等多项荣誉。除了音乐事业，鞠婧祎还在影视领域表现出色，主演了《芸汐传》、《新白娘子传奇》、《漂亮书生》等多部热门电视剧。
+                    </p>
+                </div>
+                
+                <!-- 成就与荣誉 -->
+                <div class="bg-white rounded-xl p-8 shadow-md">
+                    <h3 class="text-2xl font-bold mb-6 text-center">成就与荣誉</h3>
+                    <div class="space-y-6">
+                        <div class="flex">
+                            <div class="w-1/4 font-bold text-primary">2025</div>
+                            <div class="w-3/4">
+                                <p class="font-medium">王者荣耀共创之夜《锦鲤抄》舞台播放量破8000万</p>
+                                <p class="text-gray-600">江苏卫视春晚《壁上观》舞台获得广泛好评</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-1/4 font-bold text-primary">2023</div>
+                            <div class="w-3/4">
+                                <p class="font-medium">东方风云榜音乐盛典"年度风尚歌手"</p>
+                                <p class="text-gray-600">《恋爱告急》舞台成为年度热门表演</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-1/4 font-bold text-primary">2022</div>
+                            <div class="w-3/4">
+                                <p class="font-medium">发行个人EP《IX》</p>
+                                <p class="text-gray-600">《Be My POI》舞台首秀获得高度关注</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-1/4 font-bold text-primary">2019</div>
+                            <div class="w-3/4">
+                                <p class="font-medium">发行首张个人专辑《孤独与诗》</p>
+                                <p class="text-gray-600">获得东方风云榜音乐盛典"年度风尚歌手"</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-1/4 font-bold text-primary">2018</div>
+                            <div class="w-3/4">
+                                <p class="font-medium">第25届东方风云榜"年度跨界艺人奖"</p>
+                                <p class="text-gray-600">主演电视剧《芸汐传》爆红网络</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 粉丝互动区 -->
+            <div class="mt-12 bg-white rounded-xl p-8 shadow-md">
+                <h3 class="text-2xl font-bold mb-6 text-center">粉丝互动区</h3>
+                <div class="comment-section p-6">
+                    <div class="mb-6">
+                        <textarea id="comment-input" class="comment-input" rows="4" placeholder="写下你对鞠婧祎的祝福或支持..."></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button id="post-comment" class="comment-button">
+                            <i class="fa fa-paper-plane mr-2"></i>发表评论
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 评论列表 -->
+                <div class="mt-8 space-y-6" id="comments-list">
+                    <!-- 评论1 -->
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0">
+                            <span class="font-medium">JY</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">鞠婧祎的小粉丝</span>
+                                <span class="text-sm text-gray-500">2025-12-01</span>
+                            </div>
+                            <p class="text-gray-700">鞠婧祎的舞台每次都让人惊艳！《锦鲤抄》的舞蹈太美了，循环播放了好多遍！</p>
+                            <div class="mt-2 flex items-center text-sm text-gray-500">
+                                <button class="flex items-center hover:text-primary transition duration-300">
+                                    <i class="fa fa-heart-o mr-1"></i>
+                                    <span>128</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <h3 class="text-2xl font-bold mb-4">演艺经历</h3>
-                    <ul class="text-gray-700 space-y-3 mb-6">
-                        <li><i class="fas fa-star text-primary mr-2"></i>2013年11月2日，凭借SNH48《剧场女神》团体公演正式出道。</li>
-                        <li><i class="fas fa-star text-primary mr-2"></i>2016年，主演个人首部电视剧《九州天空城》，饰演雪飞霜。</li>
-                        <li><i class="fas fa-star text-primary mr-2"></i>2017年，成为SNH48首位总选举连霸成员，并晋升SNH48明星殿堂，正式单飞发展。</li>
-                        <li><i class="fas fa-star text-primary mr-2"></i>2018年，凭借古装剧《芸汐传》在影视领域崭露头角。</li>
-                        <li><i class="fas fa-star text-primary mr-2"></i>2019年，因在神话剧《新白娘子传奇》中饰演白素贞而赢得颇高关注。</li>
-                        <li><i class="fas fa-star text-primary mr-2"></i>2024年，主演的《仙剑奇侠传四》和《花间令》相继播出，获得广泛好评。</li>
-                    </ul>
+                    <!-- 评论2 -->
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0">
+                            <span class="font-medium">XY</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">小祎</span>
+                                <span class="text-sm text-gray-500">2025-11-30</span>
+                            </div>
+                            <p class="text-gray-700">从SNH48时期就开始关注鞠婧祎了，看着她一步步成长，真的很为她开心！期待更多音乐作品和影视作品！</p>
+                            <div class="mt-2 flex items-center text-sm text-gray-500">
+                                <button class="flex items-center hover:text-primary transition duration-300">
+                                    <i class="fa fa-heart-o mr-1"></i>
+                                    <span>86</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <h3 class="text-2xl font-bold mb-4">主要成就</h3>
-                    <ul class="text-gray-700 space-y-3">
-                        <li><i class="fas fa-trophy text-accent mr-2"></i>第25届东方风云榜音乐盛典年度跨界艺人</li>
-                        <li><i class="fas fa-trophy text-accent mr-2"></i>SNH48第三届、第四届总选举第一名</li>
-                        <li><i class="fas fa-trophy text-accent mr-2"></i>福布斯中国30位30岁以下精英榜人物</li>
-                        <li><i class="fas fa-trophy text-accent mr-2"></i>爱奇艺尖叫之夜年度戏剧突破艺人</li>
-                        <li><i class="fas fa-trophy text-accent mr-2"></i>首届中加电视节最佳网络剧演员奖</li>
-                    </ul>
+                    <!-- 评论3 -->
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center flex-shrink-0">
+                            <span class="font-medium">LL</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">柠檬</span>
+                                <span class="text-sm text-gray-500">2025-11-28</span>
+                            </div>
+                            <p class="text-gray-700">鞠婧祎的歌声真的很治愈，每次心情不好的时候听她的歌都会感觉好很多。希望她永远开心快乐！</p>
+                            <div class="mt-2 flex items-center text-sm text-gray-500">
+                                <button class="flex items-center hover:text-primary transition duration-300">
+                                    <i class="fa fa-heart-o mr-1"></i>
+                                    <span>64</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- 页脚 -->
-    <footer class="bg-dark text-white py-12">
+    <footer class="bg-dark text-white py-10">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">鞠婧祎应援站</h3>
-                    <p class="text-gray-400">为鞠婧祎打造的专属应援网站，收集整理小鞠的音乐作品、舞蹈视频和最新动态。</p>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-2">鞠婧祎应援站</h3>
+                    <p class="text-gray-400">为鞠婧祎打造的专属应援网站</p>
                 </div>
                 
-                <div>
-                    <h3 class="text-xl font-bold mb-4">快速链接</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
-                        <li><a href="#music" class="text-gray-400 hover:text-white transition-colors">音乐作品</a></li>
-                        <li><a href="#videos" class="text-gray-400 hover:text-white transition-colors">舞蹈视频</a></li>
-                        <li><a href="#quiz" class="text-gray-400 hover:text-white transition-colors">趣味测试</a></li>
-                        <li><a href="#gallery" class="text-gray-400 hover:text-white transition-colors">照片墙</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">关于小鞠</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-bold mb-4">关注小鞠</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-weibo text-white"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-weixin text-white"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-bilibili text-white"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-instagram text-white"></i>
-                        </a>
-                    </div>
+                <!-- 社交媒体链接 -->
+                <div class="flex space-x-6">
+                    <a href="#" class="text-white hover:text-primary transition duration-300">
+                        <i class="fa fa-weibo text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-primary transition duration-300">
+                        <i class="fa fa-wechat text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-primary transition duration-300">
+                        <i class="fa fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-primary transition duration-300">
+                        <i class="fa fa-youtube-play text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-primary transition duration-300">
+                        <i class="fa fa-bilibili text-2xl"></i>
+                    </a>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
-                <p>&copy; 2025 鞠婧祎应援站. 本站仅供粉丝交流使用，非官方网站.</p>
+            <hr class="border-gray-800 my-8">
+            
+            <div class="text-center text-gray-400">
+                <p>&copy; 2025 鞠婧祎应援站. 本站仅用于粉丝应援，非官方网站.</p>
+                <p class="mt-2">本站内容仅供粉丝欣赏，如有侵权请联系我们删除.</p>
             </div>
         </div>
     </footer>
-    
-    <!-- 视频模态框 -->
-    <div id="video-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <iframe id="modal-iframe" width="100%" height="500" src="" frameborder="0" allowfullscreen></iframe>
-        </div>
+
+    <!-- 图片查看器模态框 -->
+    <div id="image-modal" class="modal">
+        <span class="close-button">&times;</span>
+        <img class="modal-content" id="modal-image">
     </div>
-    
-    <!-- 音乐播放器 -->
-    <div id="music-player" class="music-player">
-        <div class="flex items-center">
-            <img id="current-song-image" src="" alt="当前歌曲" class="w-12 h-12 object-cover rounded mr-4">
-            <div>
-                <h4 id="current-song-title" class="font-medium">歌曲名称</h4>
-                <p id="current-song-artist" class="text-sm text-gray-600">鞠婧祎</p>
-            </div>
-        </div>
-        
-        <div class="player-controls mx-6">
-            <div class="player-button">
-                <i class="fas fa-step-backward"></i>
-            </div>
-            <div class="player-button" id="play-pause-button">
-                <i class="fas fa-play"></i>
-            </div>
-            <div class="player-button">
-                <i class="fas fa-step-forward"></i>
-            </div>
-        </div>
-        
-        <div class="progress-container" id="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-            <div class="progress-handle" id="progress-handle"></div>
-        </div>
-        
-        <div class="flex items-center">
-            <span id="current-time" class="text-sm text-gray-600 mr-2">00:00</span>
-            <span id="total-time" class="text-sm text-gray-600">00:00</span>
-        </div>
-        
-        <button id="close-player" class="ml-6 text-gray-600 hover:text-gray-800">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-    
+
+    <!-- JavaScript -->
     <script>
-        // 导航栏激活状态
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section');
-        
-        window.addEventListener('scroll', () => {
-            let current = '';
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端导航菜单
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
             
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (pageYOffset >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
             });
             
-            navLinks.forEach(link => {
-                link.classList.remove('active-nav');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active-nav');
-                }
-            });
-        });
-        
-        // 移动端菜单
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-        
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-        
-        // 滚动动画
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const fadeInOnScroll = () => {
-            fadeElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('active');
-                }
-            });
-        };
-        
-        window.addEventListener('scroll', fadeInOnScroll);
-        window.addEventListener('load', fadeInOnScroll);
-        
-        // 视频模态框
-        const videoModal = document.getElementById('video-modal');
-        const modalIframe = document.getElementById('modal-iframe');
-        const closeModal = document.querySelector('.close-modal');
-        const playButtons = document.querySelectorAll('.play-button');
-        
-        playButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const videoUrl = button.getAttribute('data-video');
-                modalIframe.src = videoUrl;
-                videoModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        closeModal.addEventListener('click', () => {
-            videoModal.style.display = 'none';
-            modalIframe.src = '';
-            document.body.style.overflow = 'auto';
-        });
-        
-        videoModal.addEventListener('click', (e) => {
-            if (e.target === videoModal) {
-                videoModal.style.display = 'none';
-                modalIframe.src = '';
-                document.body.style.overflow = 'auto';
-            }
-        });
-        
-        // 音乐播放器
-        const musicPlayer = document.getElementById('music-player');
-        const playMusicButtons = document.querySelectorAll('.play-music');
-        const closePlayer = document.getElementById('close-player');
-        const playPauseButton = document.getElementById('play-pause-button');
-        const progressContainer = document.getElementById('progress-container');
-        const progressBar = document.getElementById('progress-bar');
-        const progressHandle = document.getElementById('progress-handle');
-        const currentTimeDisplay = document.getElementById('current-time');
-        const totalTimeDisplay = document.getElementById('total-time');
-        const currentSongTitle = document.getElementById('current-song-title');
-        const currentSongImage = document.getElementById('current-song-image');
-        
-        // 模拟音乐数据
-        const songs = [
-            {
-                title: '孤独与诗',
-                artist: '鞠婧祎',
-                image: 'https://p26-doubao-search-sign.byteimg.com/labis/90d2a61220fdd6aee36747995b58145e~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=EFlKZpz31ubtajBhSfYSd2UuXUA%3D',
-                duration: '3:45'
-            },
-            {
-                title: '分裂时差',
-                artist: '鞠婧祎',
-                image: 'https://p26-doubao-search-sign.byteimg.com/labis/1947197c664363aad06968b58dd94e20~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=GtvNJAI5BbcNOJVSOSzeTOrDu6E%3D',
-                duration: '4:02'
-            },
-            {
-                title: '每一天',
-                artist: '鞠婧祎',
-                image: 'https://p26-doubao-search-sign.byteimg.com/labis/972c79111c12dc156982835c3d415925~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=ujWlWJttB%2BmQei8Jvb4OutOZfsI%3D',
-                duration: '3:28'
-            },
-            {
-                title: '叹云兮',
-                artist: '鞠婧祎',
-                image: 'https://p26-doubao-search-sign.byteimg.com/labis/5735a3e7ca8c3d9d80a12395fd48652c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=65RFGF3WVusDIjbtaIj%2B0PKP2oQ%3D',
-                duration: '4:15'
-            },
-            {
-                title: '落花成泥',
-                artist: '鞠婧祎',
-                image: 'https://p26-doubao-search-sign.byteimg.com/labis/2dbf21ffbc7c2d86023c57b9b511866c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=CyD2yALmSc9MEBPkbs4stnHnvwg%3D',
-                duration: '3:58'
-            },
-            {
-                title: '所念皆星河',
-                artist: '鞠婧祎',
-                image: 'https://p26-doubao-search-sign.byteimg.com/labis/78aa8e04c50dff17c7a996eb8303badd~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1779502006&x-signature=3NqdDi9LwpY71DUSXwUfweMYgM0%3D',
-                duration: '4:05'
-            }
-        ];
-        
-        let currentSongIndex = 0;
-        let isPlaying = false;
-        let progressInterval;
-        
-        // 播放音乐
-        const playMusic = (songTitle) => {
-            // 查找歌曲索引
-            const songIndex = songs.findIndex(song => song.title === songTitle);
-            if (songIndex !== -1) {
-                currentSongIndex = songIndex;
-            }
-            
-            const song = songs[currentSongIndex];
-            currentSongTitle.textContent = song.title;
-            currentSongImage.src = song.image;
-            totalTimeDisplay.textContent = song.duration;
-            
-            // 显示播放器
-            musicPlayer.classList.add('active');
-            
-            // 模拟播放
-            playPause();
-        };
-        
-        // 播放/暂停
-        const playPause = () => {
-            isPlaying = !isPlaying;
-            
-            if (isPlaying) {
-                playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
-                
-                // 模拟进度条
-                let progress = 0;
-                progressBar.style.width = '0%';
-                
-                // 清除之前的定时器
-                if (progressInterval) {
-                    clearInterval(progressInterval);
-                }
-                
-                // 设置新的定时器
-                progressInterval = setInterval(() => {
-                    progress += 0.1;
-                    progressBar.style.width = `${progress}%`;
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    // 计算当前时间
-                    const [minutes, seconds] = songs[currentSongIndex].duration.split(':');
-                    const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
-                    const currentSeconds = Math.floor(totalSeconds * progress / 100);
-                    const currentMinutes = Math.floor(currentSeconds / 60);
-                    const currentSecs = currentSeconds % 60;
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
                     
-                    currentTimeDisplay.textContent = `${currentMinutes.toString().padStart(2, '0')}:${currentSecs.toString().padStart(2, '0')}`;
-                    
-                    // 移动进度条手柄
-                    progressHandle.style.left = `${progress}%`;
-                    
-                    // 歌曲结束
-                    if (progress >= 100) {
-                        clearInterval(progressInterval);
-                        nextSong();
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 如果是移动端，点击后关闭菜单
+                        if (window.innerWidth < 768) {
+                            mobileMenu.classList.add('hidden');
+                        }
                     }
-                }, 100);
-            } else {
-                playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-                clearInterval(progressInterval);
-            }
-        };
-        
-        // 下一首
-        const nextSong = () => {
-            currentSongIndex = (currentSongIndex + 1) % songs.length;
-            clearInterval(progressInterval);
-            playMusic(songs[currentSongIndex].title);
-        };
-        
-        // 上一首
-        const prevSong = () => {
-            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-            clearInterval(progressInterval);
-            playMusic(songs[currentSongIndex].title);
-        };
-        
-        // 事件监听
-        playMusicButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const songTitle = button.getAttribute('data-song');
-                playMusic(songTitle);
-            });
-        });
-        
-        closePlayer.addEventListener('click', () => {
-            musicPlayer.classList.remove('active');
-            isPlaying = false;
-            playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-            clearInterval(progressInterval);
-        });
-        
-        playPauseButton.addEventListener('click', playPause);
-        
-        // 进度条控制
-        progressContainer.addEventListener('click', (e) => {
-            const rect = progressContainer.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            const progress = pos * 100;
-            
-            progressBar.style.width = `${progress}%`;
-            progressHandle.style.left = `${progress}%`;
-            
-            // 计算当前时间
-            const [minutes, seconds] = songs[currentSongIndex].duration.split(':');
-            const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
-            const currentSeconds = Math.floor(totalSeconds * progress / 100);
-            const currentMinutes = Math.floor(currentSeconds / 60);
-            const currentSecs = currentSeconds % 60;
-            
-            currentTimeDisplay.textContent = `${currentMinutes.toString().padStart(2, '0')}:${currentSecs.toString().padStart(2, '0')}`;
-        });
-        
-        // 趣味测试
-        const startQuiz = document.getElementById('start-quiz');
-        const quizStart = document.getElementById('quiz-start');
-        const quizQuestions = document.getElementById('quiz-questions');
-        const quizResult = document.getElementById('quiz-result');
-        const questionContainers = document.querySelectorAll('.quiz-question-container');
-        const nextQuestion = document.getElementById('next-question');
-        const prevQuestion = document.getElementById('prev-question');
-        const submitQuiz = document.getElementById('submit-quiz');
-        const retryQuiz = document.getElementById('retry-quiz');
-        const resultScore = document.querySelector('.result-score');
-        const resultMessage = document.querySelector('.result-message');
-        
-        let currentQuestion = 0;
-        let score = 0;
-        let selectedOptions = [];
-        
-        // 开始测试
-        startQuiz.addEventListener('click', () => {
-            quizStart.classList.add('hidden');
-            quizQuestions.classList.remove('hidden');
-            showQuestion(0);
-        });
-        
-        // 显示问题
-        const showQuestion = (index) => {
-            questionContainers.forEach((container, i) => {
-                container.classList.toggle('hidden', i !== index);
-            });
-            
-            // 更新按钮状态
-            prevQuestion.classList.toggle('hidden', index === 0);
-            
-            if (index === questionContainers.length - 1) {
-                nextQuestion.classList.add('hidden');
-                submitQuiz.classList.remove('hidden');
-            } else {
-                nextQuestion.classList.remove('hidden');
-                submitQuiz.classList.add('hidden');
-            }
-            
-            // 恢复之前的选择
-            const options = questionContainers[index].querySelectorAll('.quiz-option');
-            options.forEach((option, i) => {
-                option.classList.toggle('selected', selectedOptions[index] === i);
-            });
-        };
-        
-        // 选择选项
-        questionContainers.forEach((container, qIndex) => {
-            const options = container.querySelectorAll('.quiz-option');
-            
-            options.forEach((option, oIndex) => {
-                option.addEventListener('click', () => {
-                    // 移除其他选项的选中状态
-                    options.forEach(opt => opt.classList.remove('selected'));
-                    
-                    // 添加当前选项的选中状态
-                    option.classList.add('selected');
-                    
-                    // 记录选择
-                    selectedOptions[qIndex] = oIndex;
                 });
             });
-        });
-        
-        // 下一题
-        nextQuestion.addEventListener('click', () => {
-            currentQuestion++;
-            showQuestion(currentQuestion);
-        });
-        
-        // 上一题
-        prevQuestion.addEventListener('click', () => {
-            currentQuestion--;
-            showQuestion(currentQuestion);
-        });
-        
-        // 提交测试
-        submitQuiz.addEventListener('click', () => {
-            // 计算得分
-            score = 0;
             
-            questionContainers.forEach((container, qIndex) => {
-                const options = container.querySelectorAll('.quiz-option');
-                const selectedIndex = selectedOptions[qIndex];
+            // 音乐分类过滤
+            const musicFilterBtns = document.querySelectorAll('.music-filter-btn');
+            const musicCards = document.querySelectorAll('.music-card');
+            
+            musicFilterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    musicFilterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-primary', 'text-white');
+                        b.classList.add('bg-gray-200', 'text-dark');
+                    });
+                    
+                    // 添加当前按钮的active类
+                    this.classList.add('active', 'bg-primary', 'text-white');
+                    this.classList.remove('bg-gray-200', 'text-dark');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 过滤音乐卡片
+                    musicCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // 视频分类过滤
+            const videoFilterBtns = document.querySelectorAll('.video-filter-btn');
+            const videoCards = document.querySelectorAll('.video-card');
+            
+            videoFilterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    videoFilterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-primary', 'text-white');
+                        b.classList.add('bg-gray-200', 'text-dark');
+                    });
+                    
+                    // 添加当前按钮的active类
+                    this.classList.add('active', 'bg-primary', 'text-white');
+                    this.classList.remove('bg-gray-200', 'text-dark');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 过滤视频卡片
+                    videoCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // 图片分类过滤
+            const imageFilterBtns = document.querySelectorAll('.image-filter-btn');
+            const imageItems = document.querySelectorAll('.image-item');
+            
+            imageFilterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    imageFilterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-primary', 'text-white');
+                        b.classList.add('bg-gray-200', 'text-dark');
+                    });
+                    
+                    // 添加当前按钮的active类
+                    this.classList.add('active', 'bg-primary', 'text-white');
+                    this.classList.remove('bg-gray-200', 'text-dark');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 过滤图片
+                    imageItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // 图片搜索功能
+            const imageSearch = document.getElementById('image-search');
+            
+            imageSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
                 
-                if (selectedIndex !== undefined && options[selectedIndex].hasAttribute('data-correct')) {
-                    score++;
+                imageItems.forEach(item => {
+                    const img = item.querySelector('img');
+                    const altText = img.alt.toLowerCase();
+                    
+                    if (altText.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+            
+            // 图片查看器
+            const imageModal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const closeButton = document.querySelector('.close-button');
+            
+            // 打开图片查看器
+            imageItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const img = this.querySelector('img');
+                    modalImage.src = img.src;
+                    imageModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden'; // 防止背景滚动
+                });
+            });
+            
+            // 关闭图片查看器
+            closeButton.addEventListener('click', function() {
+                imageModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // 恢复背景滚动
+            });
+            
+            // 点击模态框外部关闭
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) {
+                    imageModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
                 }
             });
             
-            // 显示结果
-            resultScore.textContent = `${score}/${questionContainers.length}`;
+            // 键盘ESC关闭图片查看器
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && imageModal.style.display === 'flex') {
+                    imageModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
             
-            // 根据得分显示不同的消息
-            if (score === questionContainers.length) {
-                resultMessage.textContent = '太棒了！你是鞠婧祎的真爱粉！';
-            } else if (score >= questionContainers.length / 2) {
-                resultMessage.textContent = '不错哦！你对小鞠有一定的了解！';
-            } else {
-                resultMessage.textContent = '继续加油，多了解小鞠吧！';
+            // 音乐播放功能
+            const playButton = document.getElementById('play-button');
+            const progressBar = document.getElementById('progress-bar');
+            const currentTimeDisplay = document.getElementById('current-time');
+            const totalTimeDisplay = document.getElementById('total-time');
+            const currentAlbumArt = document.getElementById('current-album-art').querySelector('img');
+            const currentSongTitle = document.getElementById('current-song-title');
+            const currentSongArtist = document.getElementById('current-song-artist');
+            const lyricsContainer = document.getElementById('lyrics-container');
+            const lyrics = document.getElementById('lyrics');
+            const playSongButtons = document.querySelectorAll('.play-song');
+            
+            let isPlaying = false;
+            let currentTime = 0;
+            let totalTime = 180; // 默认3分钟
+            let progressInterval;
+            
+            // 模拟歌词数据
+            const songLyrics = {
+                '恋爱告急': `
+                    <p>你像一道光 照亮我的世界</p>
+                    <p>每一次呼吸 都因你而变得新鲜</p>
+                    <p>我的心跳 开始恋爱告急</p>
+                    <p>无法控制 对你的思念</p>
+                    <p>你的笑容 像阳光一样温暖</p>
+                    <p>每一个眼神 都让我心醉神迷</p>
+                    <p>我的心跳 开始恋爱告急</p>
+                    <p>想要告诉你 我喜欢你</p>
+                `,
+                '锦鲤抄': `
+                    <p>蝉声陪伴着行云流浪</p>
+                    <p>回忆开始后安静遥望远方</p>
+                    <p>荒草覆没的古井枯塘</p>
+                    <p>匀散一缕过往</p>
+                    <p>晨曦惊扰了陌上新桑</p>
+                    <p>风卷起庭前落花穿过回廊</p>
+                    <p>浓墨追逐着情绪流淌</p>
+                    <p>染我素衣白裳</p>
+                `,
+                '叹云兮': `
+                    <p>若这个世界凋谢</p>
+                    <p>我会守在你身边</p>
+                    <p>用沉默坚决</p>
+                    <p>对抗万语千言</p>
+                    <p>倘若这世间</p>
+                    <p>一切都在无情的崩裂</p>
+                    <p>我会用手中的线</p>
+                    <p>为你缝原</p>
+                `
+            };
+            
+            // 播放/暂停按钮点击事件
+            playButton.addEventListener('click', togglePlay);
+            
+            // 播放歌曲按钮点击事件
+            playSongButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 阻止事件冒泡
+                    
+                    const card = this.closest('.music-card');
+                    const songTitle = card.querySelector('h3').textContent;
+                    const songImage = card.querySelector('img').src;
+                    
+                    // 更新当前播放歌曲信息
+                    currentAlbumArt.src = songImage;
+                    currentSongTitle.textContent = songTitle;
+                    currentSongArtist.textContent = '鞠婧祎';
+                    
+                    // 显示歌词
+                    lyricsContainer.classList.remove('hidden');
+                    lyrics.innerHTML = songLyrics[songTitle] || '<p>歌词加载中...</p>';
+                    
+                    // 重置进度条
+                    currentTime = 0;
+                    progressBar.style.width = '0%';
+                    currentTimeDisplay.textContent = '00:00';
+                    
+                    // 开始播放
+                    togglePlay();
+                });
+            });
+            
+            // 切换播放/暂停状态
+            function togglePlay() {
+                isPlaying = !isPlaying;
+                
+                if (isPlaying) {
+                    playButton.innerHTML = '<i class="fa fa-pause text-xl"></i>';
+                    startProgress();
+                } else {
+                    playButton.innerHTML = '<i class="fa fa-play text-xl"></i>';
+                    stopProgress();
+                }
             }
             
-            // 显示结果页面
-            quizQuestions.classList.add('hidden');
-            quizResult.classList.remove('hidden');
-        });
-        
-        // 重新测试
-        retryQuiz.addEventListener('click', () => {
-            currentQuestion = 0;
-            score = 0;
-            selectedOptions = [];
-            quizResult.classList.add('hidden');
-            quizStart.classList.remove('hidden');
+            // 开始进度条更新
+            function startProgress() {
+                progressInterval = setInterval(function() {
+                    currentTime++;
+                    
+                    if (currentTime >= totalTime) {
+                        currentTime = 0;
+                    }
+                    
+                    const progress = (currentTime / totalTime) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    currentTimeDisplay.textContent = formatTime(currentTime);
+                }, 1000);
+            }
+            
+            // 停止进度条更新
+            function stopProgress() {
+                clearInterval(progressInterval);
+            }
+            
+            // 格式化时间（秒 -> MM:SS）
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                seconds = seconds % 60;
+                
+                return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // 初始化总时间显示
+            totalTimeDisplay.textContent = formatTime(totalTime);
+            
+            // 评论功能
+            const commentInput = document.getElementById('comment-input');
+            const postCommentButton = document.getElementById('post-comment');
+            const commentsList = document.getElementById('comments-list');
+            
+            postCommentButton.addEventListener('click', function() {
+                const commentText = commentInput.value.trim();
+                
+                if (commentText) {
+                    // 创建新评论
+                    const newComment = document.createElement('div');
+                    newComment.className = 'flex gap-4';
+                    
+                    // 随机生成用户头像字母
+                    const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                    
+                    // 获取当前日期
+                    const today = new Date();
+                    const dateString = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+                    
+                    // 设置评论内容
+                    newComment.innerHTML = `
+                        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0">
+                            <span class="font-medium">${randomLetter}</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">匿名粉丝</span>
+                                <span class="text-sm text-gray-500">${dateString}</span>
+                            </div>
+                            <p class="text-gray-700">${commentText}</p>
+                            <div class="mt-2 flex items-center text-sm text-gray-500">
+                                <button class="flex items-center hover:text-primary transition duration-300">
+                                    <i class="fa fa-heart-o mr-1"></i>
+                                    <span>0</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // 添加到评论列表顶部
+                    commentsList.prepend(newComment);
+                    
+                    // 清空评论输入框
+                    commentInput.value = '';
+                    
+                    // 添加点赞功能
+                    const likeButton = newComment.querySelector('button');
+                    likeButton.addEventListener('click', function() {
+                        const likeCount = this.querySelector('span');
+                        const heartIcon = this.querySelector('i');
+                        
+                        if (heartIcon.classList.contains('fa-heart-o')) {
+                            heartIcon.classList.remove('fa-heart-o');
+                            heartIcon.classList.add('fa-heart');
+                            likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                            this.classList.add('text-primary');
+                        } else {
+                            heartIcon.classList.remove('fa-heart');
+                            heartIcon.classList.add('fa-heart-o');
+                            likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                            this.classList.remove('text-primary');
+                        }
+                    });
+                }
+            });
+            
+            // 为现有评论添加点赞功能
+            const likeButtons = document.querySelectorAll('#comments-list button');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const likeCount = this.querySelector('span');
+                    const heartIcon = this.querySelector('i');
+                    
+                    if (heartIcon.classList.contains('fa-heart-o')) {
+                        heartIcon.classList.remove('fa-heart-o');
+                        heartIcon.classList.add('fa-heart');
+                        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                        this.classList.add('text-primary');
+                    } else {
+                        heartIcon.classList.remove('fa-heart');
+                        heartIcon.classList.add('fa-heart-o');
+                        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                        this.classList.remove('text-primary');
+                    }
+                });
+            });
+            
+            // 加载更多图片
+            const loadMoreImagesButton = document.getElementById('load-more-images');
+            
+            loadMoreImagesButton.addEventListener('click', function() {
+                // 显示加载动画
+                this.innerHTML = '<div class="loading-spinner mx-auto"></div>';
+                this.disabled = true;
+                
+                // 模拟加载延迟
+                setTimeout(() => {
+                    // 恢复按钮状态
+                    this.innerHTML = '加载更多图片 <i class="fa fa-refresh ml-2"></i>';
+                    this.disabled = false;
+                    
+                    // 显示提示信息
+                    alert('已加载全部图片！');
+                }, 1500);
+            });
+            
+            // 视频播放功能
+            const videoCardsList = document.querySelectorAll('.video-card');
+            
+            videoCardsList.forEach(card => {
+                const playButton = card.querySelector('.play-button');
+                
+                playButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    const videoTitle = card.querySelector('h3').textContent;
+                    alert(`正在播放: ${videoTitle}\n\n视频功能模拟，实际项目中可集成视频播放器。`);
+                });
+            });
+            
+            // 智能推荐系统（模拟）
+            function showRecommendation() {
+                // 获取当前日期
+                const today = new Date();
+                const hour = today.getHours();
+                
+                let recommendation = '';
+                
+                // 根据时间推荐不同内容
+                if (hour >= 6 && hour < 12) {
+                    recommendation = '早晨好！推荐您欣赏鞠婧祎清新甜美的《恋爱告急》。';
+                } else if (hour >= 12 && hour < 18) {
+                    recommendation = '下午好！推荐您观看鞠婧祎精彩的《锦鲤抄》舞台表演。';
+                } else {
+                    recommendation = '晚上好！推荐您聆听鞠婧祎温柔治愈的《叹云兮》。';
+                }
+                
+                // 创建推荐通知
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-4 right-4 bg-primary text-white p-4 rounded-lg shadow-lg flex items-center space-x-3 animate-fade-in z-50 max-w-xs';
+                notification.innerHTML = `
+                    <i class="fa fa-lightbulb-o text-xl"></i>
+                    <div>
+                        <p class="font-medium">智能推荐</p>
+                        <p class="text-sm">${recommendation}</p>
+                    </div>
+                    <button class="ml-4 text-white hover:text-gray-200 transition duration-300">
+                        <i class="fa fa-times"></i>
+                    </button>
+                `;
+                
+                // 添加到页面
+                document.body.appendChild(notification);
+                
+                // 关闭按钮点击事件
+                const closeButton = notification.querySelector('button');
+                closeButton.addEventListener('click', function() {
+                    notification.classList.add('animate-fade-out');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 500);
+                });
+                
+                // 5秒后自动关闭
+                setTimeout(() => {
+                    notification.classList.add('animate-fade-out');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 500);
+                }, 5000);
+            }
+            
+            // 页面滚动时显示智能推荐
+            let recommendationShown = false;
+            
+            window.addEventListener('scroll', function() {
+                if (!recommendationShown && window.scrollY > 500) {
+                    showRecommendation();
+                    recommendationShown = true;
+                }
+            });
+            
+            // 添加动画类
+            document.head.insertAdjacentHTML('beforeend', `
+                <style>
+                    @keyframes fadeOut {
+                        from { opacity: 1; }
+                        to { opacity: 0; }
+                    }
+                    .animate-fade-out {
+                        animation: fadeOut 0.5s ease-in-out forwards;
+                    }
+                </style>
+            `);
         });
     </script>
 </body>
