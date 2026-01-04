@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鞠婧祎应援站 - 记录页</title>
+    <!-- 复用主站的样式资源，保证风格统一 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 复用主站的Tailwind配置，保证颜色、动画一致
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B8B',
+                        secondary: '#FFB6C1',
+                        accent: '#FF85A2',
+                        light: '#FFF0F3',
+                        dark: '#4A4A4A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .backdrop-blur-sm {
+                backdrop-filter: blur(4px);
+            }
+        }
+    </style>
+    <style>
+        /* 复用主站基础样式 */
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #FFF0F3;
+            color: #4A4A4A;
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FF6B8B;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .record-item {
+            transition: all 0.2s ease;
+        }
+        .record-item:hover {
+            background-color: rgba(255, 107, 139, 0.05);
+        }
+    </style>
+</head>
+<body class="pt-20">
+    <!-- 复用主站导航栏，保证页面跳转一致性 -->
+    <nav class="fixed top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-sm z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="text-2xl font-bold text-primary">鞠婧祎应援站</span>
+            </div>
+            <div class="desktop-nav">
+                <ul class="flex space-x-8">
+                    <li><a href="index.html" class="nav-link font-medium">返回首页</a></li>
+                    <li><a href="#" class="nav-link font-medium text-primary">记录页</a></li>
+                </ul>
+            </div>
+            <!-- 移动端导航 -->
+            <div class="mobile-nav">
+                <button id="mobile-menu-button" class="text-dark focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden bg-white w-full shadow-md">
+            <ul class="py-2 px-4">
+                <li><a href="index.html" class="block py-2 px-4 hover:bg-light rounded">返回首页</a></li>
+                <li><a href="#" class="block py-2 px-4 hover:bg-light rounded text-primary">记录页</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 记录页主体 -->
+    <section class="py-12 container mx-auto px-4 animate-fade-in">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-md p-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-dark mb-2">应援记录</h2>
+                <p class="text-gray-500">记录每一个关于鞠婧祎的美好瞬间</p>
+            </div>
+
+            <!-- 记录列表 -->
+            <div class="space-y-4">
+                <!-- 示例记录1 -->
+                <div class="record-item border-b border-gray-100 pb-4 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-medium">2025年4月应援物料制作完成</h3>
+                        <p class="text-sm text-gray-500">包含海报、手幅、应援视频等物料</p>
+                    </div>
+                    <span class="text-xs text-gray-400 bg-light px-3 py-1 rounded-full">2025-04-15 14:30</span>
+                </div>
+
+                <!-- 示例记录2 -->
+                <div class="record-item border-b border-gray-100 pb-4 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-medium">鞠婧祎新单曲《锦鲤抄》上线</h3>
+                        <p class="text-sm text-gray-500">全网播放量突破500万</p>
+                    </div>
+                    <span class="text-xs text-gray-400 bg-light px-3 py-1 rounded-full">2025-04-10 09:15</span>
+                </div>
+
+                <!-- 示例记录3 -->
+                <div class="record-item border-b border-gray-100 pb-4 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-medium">线下应援活动圆满结束</h3>
+                        <p class="text-sm text-gray-500">参与人数200+，现场氛围热烈</p>
+                    </div>
+                    <span class="text-xs text-gray-400 bg-light px-3 py-1 rounded-full">2025-04-01 18:45</span>
+                </div>
+
+                <!-- 👇 你可以按照这个格式自行添加更多记录 -->
+                <!-- 
+                <div class="record-item border-b border-gray-100 pb-4 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-medium">你的记录标题</h3>
+                        <p class="text-sm text-gray-500">你的记录描述（可选）</p>
+                    </div>
+                    <span class="text-xs text-gray-400 bg-light px-3 py-1 rounded-full">记录时间</span>
+                </div>
+                -->
+            </div>
+
+            <!-- 空记录提示（如果后续清空所有记录时显示） -->
+            <!-- <div class="text-center py-10 text-gray-400">
+                <i class="fa fa-book-open text-4xl mb-3"></i>
+                <p>暂无记录，快来添加第一条记录吧～</p>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- 移动端导航交互脚本 -->
+    <script>
+        // 移动端菜单展开/收起
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
