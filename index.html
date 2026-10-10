@@ -914,77 +914,49 @@
             <!-- 粉丝互动区 -->
             <div class="mt-12 bg-white rounded-xl p-8 shadow-md">
                 <h3 class="text-2xl font-bold mb-6 text-center">粉丝互动区</h3>
-                <div class="comment-section p-6">
-                    <div class="mb-6">
-                        <textarea id="comment-input" class="comment-input" rows="4" placeholder="写下你对鞠婧祎的祝福或支持..."></textarea>
+
+                <!-- 邮箱注册与登录 -->
+                <div id="auth-panel" class="rounded-lg bg-light p-6">
+                    <p id="auth-status" class="mb-4 text-sm text-gray-700" role="status" aria-live="polite">正在初始化用户服务...</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="auth-email" class="block text-sm font-medium mb-2">邮箱</label>
+                            <input id="auth-email" type="email" autocomplete="email" required maxlength="254"
+                                class="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                                placeholder="请输入邮箱地址">
+                        </div>
+                        <div>
+                            <label for="auth-password" class="block text-sm font-medium mb-2">密码</label>
+                            <input id="auth-password" type="password" autocomplete="current-password" required minlength="8"
+                                class="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                                placeholder="至少 8 位">
+                        </div>
                     </div>
-                    <div class="flex justify-end">
-                        <button id="post-comment" class="comment-button">
-                            <i class="fa fa-paper-plane mr-2"></i>发表评论
+                    <div class="mt-4 flex flex-wrap gap-3">
+                        <button id="auth-signup" type="button" class="rounded-lg bg-primary px-5 py-2 text-white hover:opacity-90 transition">邮箱注册</button>
+                        <button id="auth-login" type="button" class="rounded-lg border border-primary px-5 py-2 text-primary hover:bg-white transition">登录</button>
+                        <button id="auth-logout" type="button" class="rounded-lg border border-gray-300 px-5 py-2 text-gray-700 hover:bg-white transition" hidden>退出登录</button>
+                    </div>
+                </div>
+
+                <!-- 登录用户留言 -->
+                <div class="comment-section p-6 mt-6">
+                    <label for="comment-input" class="block font-medium mb-3">留下你的应援留言</label>
+                    <textarea id="comment-input" class="comment-input" rows="4" maxlength="1000" disabled
+                        placeholder="请先登录后留言（最多 1000 字）"></textarea>
+                    <div class="mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <p id="comment-hint" class="text-sm text-gray-500">登录后即可发表留言，所有访客都可以查看。</p>
+                        <button id="post-comment" type="button" class="comment-button" disabled>
+                            <i class="fa fa-paper-plane mr-2" aria-hidden="true"></i>发表评论
                         </button>
                     </div>
                 </div>
-                
-                <!-- 评论列表 -->
-                <div class="mt-8 space-y-6" id="comments-list">
-                    <!-- 评论1 -->
-                    <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0">
-                            <span class="font-medium">JY</span>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-medium">鞠婧祎的小粉丝</span>
-                                <span class="text-sm text-gray-500">2025-12-01</span>
-                            </div>
-                            <p class="text-gray-700">鞠婧祎的舞台每次都让人惊艳！《锦鲤抄》的舞蹈太美了，循环播放了好多遍！</p>
-                            <div class="mt-2 flex items-center text-sm text-gray-500">
-                                <button class="flex items-center hover:text-primary transition duration-300">
-                                    <i class="fa fa-heart-o mr-1"></i>
-                                    <span>128</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 评论2 -->
-                    <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0">
-                            <span class="font-medium">XY</span>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-medium">小祎</span>
-                                <span class="text-sm text-gray-500">2025-11-30</span>
-                            </div>
-                            <p class="text-gray-700">从SNH48时期就开始关注鞠婧祎了，看着她一步步成长，真的很为她开心！期待更多音乐作品和影视作品！</p>
-                            <div class="mt-2 flex items-center text-sm text-gray-500">
-                                <button class="flex items-center hover:text-primary transition duration-300">
-                                    <i class="fa fa-heart-o mr-1"></i>
-                                    <span>86</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 评论3 -->
-                    <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center flex-shrink-0">
-                            <span class="font-medium">LL</span>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-medium">柠檬</span>
-                                <span class="text-sm text-gray-500">2025-11-28</span>
-                            </div>
-                            <p class="text-gray-700">鞠婧祎的歌声真的很治愈，每次心情不好的时候听她的歌都会感觉好很多。希望她永远开心快乐！</p>
-                            <div class="mt-2 flex items-center text-sm text-gray-500">
-                                <button class="flex items-center hover:text-primary transition duration-300">
-                                    <i class="fa fa-heart-o mr-1"></i>
-                                    <span>64</span>
-                                </button>
-                            </div>
-                        </div>
+
+                <!-- 留言列表：内容由数据库加载，使用 textContent 安全渲染 -->
+                <div class="mt-8">
+                    <h4 class="text-lg font-semibold mb-4">大家的留言</h4>
+                    <div class="space-y-6" id="comments-list" aria-live="polite">
+                        <p class="text-gray-500">正在加载留言...</p>
                     </div>
                 </div>
             </div>
@@ -1338,93 +1310,7 @@
             // 初始化总时间显示
             totalTimeDisplay.textContent = formatTime(totalTime);
             
-            // 评论功能
-            const commentInput = document.getElementById('comment-input');
-            const postCommentButton = document.getElementById('post-comment');
-            const commentsList = document.getElementById('comments-list');
-            
-            postCommentButton.addEventListener('click', function() {
-                const commentText = commentInput.value.trim();
-                
-                if (commentText) {
-                    // 创建新评论
-                    const newComment = document.createElement('div');
-                    newComment.className = 'flex gap-4';
-                    
-                    // 随机生成用户头像字母
-                    const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    
-                    // 获取当前日期
-                    const today = new Date();
-                    const dateString = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
-                    
-                    // 设置评论内容
-                    newComment.innerHTML = `
-                        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0">
-                            <span class="font-medium">${randomLetter}</span>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-medium">匿名粉丝</span>
-                                <span class="text-sm text-gray-500">${dateString}</span>
-                            </div>
-                            <p class="text-gray-700">${commentText}</p>
-                            <div class="mt-2 flex items-center text-sm text-gray-500">
-                                <button class="flex items-center hover:text-primary transition duration-300">
-                                    <i class="fa fa-heart-o mr-1"></i>
-                                    <span>0</span>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // 添加到评论列表顶部
-                    commentsList.prepend(newComment);
-                    
-                    // 清空评论输入框
-                    commentInput.value = '';
-                    
-                    // 添加点赞功能
-                    const likeButton = newComment.querySelector('button');
-                    likeButton.addEventListener('click', function() {
-                        const likeCount = this.querySelector('span');
-                        const heartIcon = this.querySelector('i');
-                        
-                        if (heartIcon.classList.contains('fa-heart-o')) {
-                            heartIcon.classList.remove('fa-heart-o');
-                            heartIcon.classList.add('fa-heart');
-                            likeCount.textContent = parseInt(likeCount.textContent) + 1;
-                            this.classList.add('text-primary');
-                        } else {
-                            heartIcon.classList.remove('fa-heart');
-                            heartIcon.classList.add('fa-heart-o');
-                            likeCount.textContent = parseInt(likeCount.textContent) - 1;
-                            this.classList.remove('text-primary');
-                        }
-                    });
-                }
-            });
-            
-            // 为现有评论添加点赞功能
-            const likeButtons = document.querySelectorAll('#comments-list button');
-            likeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const likeCount = this.querySelector('span');
-                    const heartIcon = this.querySelector('i');
-                    
-                    if (heartIcon.classList.contains('fa-heart-o')) {
-                        heartIcon.classList.remove('fa-heart-o');
-                        heartIcon.classList.add('fa-heart');
-                        likeCount.textContent = parseInt(likeCount.textContent) + 1;
-                        this.classList.add('text-primary');
-                    } else {
-                        heartIcon.classList.remove('fa-heart');
-                        heartIcon.classList.add('fa-heart-o');
-                        likeCount.textContent = parseInt(likeCount.textContent) - 1;
-                        this.classList.remove('text-primary');
-                    }
-                });
-            });
+            // 留言功能由 js/auth-comments.js 负责，避免前端模拟留言及不安全的 innerHTML 渲染。
             
             // 加载更多图片
             const loadMoreImagesButton = document.getElementById('load-more-images');
@@ -1535,5 +1421,9 @@
             `);
         });
     </script>
+    <!-- Supabase 用户认证与持久化留言 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./js/supabase-config.js"></script>
+    <script src="./js/auth-comments.js"></script>
 </body>
 </html>
