@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFF0F3">
+  <title>邮箱验证码登录 - 鞠婧祎应援站</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>tailwind.config={theme:{extend:{colors:{primary:'#FF6B8B',light:'#FFF0F3',dark:'#4A4A4A'}}}};</script>
+  <style>body{background:#FFF0F3;color:#4A4A4A;font-family:Inter,system-ui,sans-serif}</style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 py-10">
+  <main class="w-full max-w-md bg-white rounded-2xl shadow-lg p-7 sm:p-9">
+    <a href="./index.html" class="text-primary text-sm hover:underline"><i class="fa fa-arrow-left mr-1"></i>返回首页</a>
+    <div class="text-center mt-5 mb-7">
+      <div class="mx-auto mb-4 w-14 h-14 rounded-full bg-light text-primary flex items-center justify-center text-2xl"><i class="fa fa-envelope-o"></i></div>
+      <h1 class="text-2xl font-bold">邮箱验证码登录</h1>
+      <p class="mt-2 text-sm text-gray-500">无需设置密码，使用邮箱验证码即可登录或注册</p>
+    </div>
+    <form id="request-code-form" class="space-y-4">
+      <label for="email" class="block text-sm font-medium">邮箱地址</label>
+      <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" class="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="name@example.com">
+      <button id="send-code" type="submit" class="w-full rounded-lg bg-primary text-white py-3 font-medium hover:opacity-90 disabled:opacity-50">发送验证码</button>
+    </form>
+    <form id="verify-code-form" class="space-y-4 mt-5" hidden>
+      <label for="token" class="block text-sm font-medium">邮箱验证码</label>
+      <input id="token" name="token" type="text" inputmode="numeric" autocomplete="one-time-code" required maxlength="10" pattern="[0-9]{6,10}" class="w-full rounded-lg border border-gray-300 p-3 tracking-widest text-center text-xl focus:outline-none focus:ring-2 focus:ring-primary" placeholder="输入邮件中的验证码">
+      <button id="verify-code" type="submit" class="w-full rounded-lg bg-primary text-white py-3 font-medium hover:opacity-90 disabled:opacity-50">验证并登录</button>
+      <button id="resend-code" type="button" class="w-full rounded-lg border border-primary text-primary py-3 hover:bg-light disabled:opacity-50">重新发送验证码</button>
+      <p class="text-xs text-gray-500">如果没有收到邮件，请检查垃圾邮件文件夹，并确认邮箱地址正确。</p>
+    </form>
+    <p id="auth-message" class="mt-5 text-sm text-center" role="status" aria-live="polite"></p>
+    <p class="mt-6 text-xs leading-5 text-gray-400">继续操作即表示你理解：登录邮箱用于账户验证；公开留言会显示你的昵称和头像，不会公开显示邮箱地址。</p>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/supabase-config.js"></script>
+  <script src="./js/auth.js"></script>
+</body>
+</html>
