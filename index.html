@@ -339,6 +339,8 @@
                 </ul>
             </div>
             
+            <a id="account-link" href="./auth.html" class="text-primary font-medium whitespace-nowrap hover:opacity-80 transition">登录</a>
+            
             <!-- 移动端导航按钮 -->
             <div class="mobile-nav">
                 <button id="mobile-menu-button" class="text-dark focus:outline-none">
@@ -355,6 +357,7 @@
                 <li><a href="#videos" class="block py-2 px-4 hover:bg-light rounded">舞蹈视频</a></li>
                 <li><a href="#gallery" class="block py-2 px-4 hover:bg-light rounded">图片墙</a></li>
                 <li><a href="#about" class="block py-2 px-4 hover:bg-light rounded">关于</a></li>
+                <li><a id="mobile-account-link" href="./auth.html" class="block py-2 px-4 text-primary hover:bg-light rounded">登录 / 个人中心</a></li>
             </ul>
         </div>
     </nav>
@@ -915,28 +918,10 @@
             <div class="mt-12 bg-white rounded-xl p-8 shadow-md">
                 <h3 class="text-2xl font-bold mb-6 text-center">粉丝互动区</h3>
 
-                <!-- 邮箱注册与登录 -->
-                <div id="auth-panel" class="rounded-lg bg-light p-6">
-                    <p id="auth-status" class="mb-4 text-sm text-gray-700" role="status" aria-live="polite">正在初始化用户服务...</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="auth-email" class="block text-sm font-medium mb-2">邮箱</label>
-                            <input id="auth-email" type="email" autocomplete="email" required maxlength="254"
-                                class="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                                placeholder="请输入邮箱地址">
-                        </div>
-                        <div>
-                            <label for="auth-password" class="block text-sm font-medium mb-2">密码</label>
-                            <input id="auth-password" type="password" autocomplete="current-password" required minlength="8"
-                                class="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                                placeholder="至少 8 位">
-                        </div>
-                    </div>
-                    <div class="mt-4 flex flex-wrap gap-3">
-                        <button id="auth-signup" type="button" class="rounded-lg bg-primary px-5 py-2 text-white hover:opacity-90 transition">邮箱注册</button>
-                        <button id="auth-login" type="button" class="rounded-lg border border-primary px-5 py-2 text-primary hover:bg-white transition">登录</button>
-                        <button id="auth-logout" type="button" class="rounded-lg border border-gray-300 px-5 py-2 text-gray-700 hover:bg-white transition" hidden>退出登录</button>
-                    </div>
+                <!-- 首页不展开登录表单；登录和资料维护在独立页面进行 -->
+                <div id="auth-panel" class="rounded-lg bg-light p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <p id="auth-status" class="text-sm text-gray-700" role="status" aria-live="polite">正在读取登录状态...</p>
+                    <a id="comment-auth-link" href="./auth.html?redirect=profile" class="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2 text-white hover:opacity-90 transition">邮箱验证码登录</a>
                 </div>
 
                 <!-- 登录用户留言 -->
