@@ -11,23 +11,24 @@ window.FAN_SITE_SUPABASE_CONFIG = {
 /*
  * 图片永久化修复（2026-11-25）
  * 原抖音签名图片链接（x-expires=1780208448）已过期并返回 403，导致全站图片裂开。
- * 这里在运行时把它们替换为 Wikimedia Commons 上公开授权（CC BY 2.5）的鞠婧祎照片永久外链；
+ * 这里在运行时把它们替换为 Wikimedia Commons 上公开授权（CC BY 2.5）的鞠婧祎照片永久外链
+ * （Wikimedia 现仅接受预渲染的标准尺寸，经逐张实测 960px 可用，其余尺寸返回 400）；
  * 若外链加载失败，则降级为内联 SVG 占位图，避免出现碎图。
  */
 (function () {
     "use strict";
 
     var REPLACEMENTS = [
-        ["277f1a09ba886611b820a6bb3cd74ad4", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90%E7%9B%9B%E5%85%B8_%284%29.jpg/600px-%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90%E7%9B%9B%E5%85%B8_%284%29.jpg"],
-        ["54c0dd6279433988cf541c3c35f90a7b", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/%E9%9E%A0%E5%A9%A7%E7%A5%8E_%286%29.jpg/600px-%E9%9E%A0%E5%A9%A7%E7%A5%8E_%286%29.jpg"],
-        ["2b4100b0eb62453e87a87da56dc0ebba", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Cast_of_Novoland_Castle_in_the_Sky_in_2016.png/600px-Cast_of_Novoland_Castle_in_the_Sky_in_2016.png"],
-        ["15229df02170e25ce5dbd32fa31e7b1d", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/%E9%9E%A0%E5%A9%A7%E7%A5%8E_%282%29.jpg/600px-%E9%9E%A0%E5%A9%A7%E7%A5%8E_%282%29.jpg"],
-        ["5b8e58c3c65b4c01ad95dab15c603694", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90%E7%9B%9B%E5%85%B8_%285%29.jpg/600px-%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90%E7%9B%9B%E5%85%B8_%285%29.jpg"],
-        ["3b13a04cc060d927eefdaecd26d613b7", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/%E9%9E%A0%E5%A9%A7%E7%A5%8E_%283%29.jpg/600px-%E9%9E%A0%E5%A9%A7%E7%A5%8E_%283%29.jpg"],
-        ["0030dd7be15b4b1ce5d18a8ea2cc999b", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Snh48%E9%9E%A0%E5%A9%A7%E7%A5%8E_%281%29.jpg/600px-Snh48%E9%9E%A0%E5%A9%A7%E7%A5%8E_%281%29.jpg"],
-        ["38470ab57fa6eb3c412c9e0ad0408eef", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Ju_Jing_Yi_27th.jpg/600px-Ju_Jing_Yi_27th.jpg"],
-        ["98a13ea50ea543fc97129463ee9e6693", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/%E9%9E%A0%E5%A9%A7%E7%A5%8E_%285%29.jpg/600px-%E9%9E%A0%E5%A9%A7%E7%A5%8E_%285%29.jpg"],
-        ["ef7827839ec6260a3d75aba2a086d204", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Snh48%E9%9E%A0%E5%A9%A7%E7%A5%8E_%283%29.jpg/600px-Snh48%E9%9E%A0%E5%A9%A7%E7%A5%8E_%283%29.jpg"],
+        ["277f1a09ba886611b820a6bb3cd74ad4", "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90%E7%9B%9B%E5%85%B8_%284%29.jpg/960px-%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90%E7%9B%9B%E5%85%B8_%284%29.jpg"],
+        ["54c0dd6279433988cf541c3c35f90a7b", "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/%E9%9E%A0%E5%A9%A7%E7%A5%8E_%286%29.jpg/960px-%E9%9E%A0%E5%A9%A7%E7%A5%8E_%286%29.jpg"],
+        ["2b4100b0eb62453e87a87da56dc0ebba", "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/Cast_of_Novoland_Castle_in_the_Sky_in_2016.png/960px-Cast_of_Novoland_Castle_in_the_Sky_in_2016.png"],
+        ["15229df02170e25ce5dbd32fa31e7b1d", "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/%E9%9E%A0%E5%A9%A7%E7%A5%8E_%282%29.jpg/960px-%E9%9E%A0%E5%A9%A7%E7%A5%8E_%282%29.jpg"],
+        ["5b8e58c3c65b4c01ad95dab15c603694", "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90%E7%9B%9B%E5%85%B8_%285%29.jpg/960px-%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90%E7%9B%9B%E5%85%B8_%285%29.jpg"],
+        ["3b13a04cc060d927eefdaecd26d613b7", "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/%E9%9E%A0%E5%A9%A7%E7%A5%8E_%283%29.jpg/960px-%E9%9E%A0%E5%A9%A7%E7%A5%8E_%283%29.jpg"],
+        ["0030dd7be15b4b1ce5d18a8ea2cc999b", "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Snh48%E9%9E%A0%E5%A9%A7%E7%A5%8E_%281%29.jpg/960px-Snh48%E9%9E%A0%E5%A9%A7%E7%A5%8E_%281%29.jpg"],
+        ["38470ab57fa6eb3c412c9e0ad0408eef", "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Ju_Jing_Yi_27th.jpg/960px-Ju_Jing_Yi_27th.jpg"],
+        ["98a13ea50ea543fc97129463ee9e6693", "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/%E9%9E%A0%E5%A9%A7%E7%A5%8E_%285%29.jpg/960px-%E9%9E%A0%E5%A9%A7%E7%A5%8E_%285%29.jpg"],
+        ["ef7827839ec6260a3d75aba2a086d204", "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Snh48%E9%9E%A0%E5%A9%A7%E7%A5%8E_%283%29.jpg/960px-Snh48%E9%9E%A0%E5%A9%A7%E7%A5%8E_%283%29.jpg"],
     ];
 
     var SVG = "<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'>" +
